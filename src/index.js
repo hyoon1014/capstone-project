@@ -5,7 +5,7 @@ class StartScreen extends Phaser.Scene
 {
     constructor ()
     {
-        super();
+        super({key: 'StartScreen'});
     }
 
     preload ()
@@ -29,9 +29,9 @@ class StartScreen extends Phaser.Scene
         const instructionsButton = this.add.rectangle(400, 260, 150, 50, 0x6fc4fc);
             instructionsButton.setInteractive();
 
-            instructionsButton.on('pointerdown', () => {
+            instructionsButton.on('pointerup', () => {
                 this.scene.stop ('StartScreen')
-                this.scene.start ('')
+                this.scene.start ('InstructionScreen')
             })
 
 
@@ -41,8 +41,41 @@ class StartScreen extends Phaser.Scene
 
             instructionsButtonText.on('pointerover', () => instructionsButtonText.setStyle({ fill: '#fef01a'}) )
                 .on('pointerout', () => instructionsButtonText.setStyle({ fill: '#83a1a7'}))
+            
+            instructionsButtonText.on('pointerup', () => {
+                this.scene.stop ('StartScreen')
+                this.scene.start ('InstructionScreen')
+            })
 
     }
+}
+
+class InstructionScreen extends Phaser.Scene {
+    constructor () 
+    {
+        super({key: 'InstructionScreen'});
+        
+    }
+    preload ()
+    {
+        this.load.image('logo', logoImg);
+    }
+      
+    create ()
+    {
+        const logo = this.add.image(400, 150, 'logo');
+      
+        this.tweens.add({
+            targets: logo,
+            y: 450,
+            duration: 2000,
+            ease: "Power2",
+            yoyo: true,
+            loop: -1
+        });
+    }
+
+
 }
 
 const config = {
@@ -50,7 +83,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: StartScreen
+    scene: [StartScreen, InstructionScreen]
 };
 
 const game = new Phaser.Game(config);
