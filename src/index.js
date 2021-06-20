@@ -10,21 +10,20 @@ class StartScreen extends Phaser.Scene
 
     preload ()
     {
-        // this.load.image('logo', logoImg);
+    
     }
       
     create ()
     {
-        // const logo = this.add.image(400, 150, 'logo');
-      
-        // this.tweens.add({
-        //     targets: logo,
-        //     y: 450,
-        //     duration: 2000,
-        //     ease: "Power2",
-        //     yoyo: true,
-        //     loop: -1
-        // });
+        const playButton = this.add.rectangle(200, 260, 150, 50, 0x6fc4fc);
+            playButton.setInteractive();
+
+            playButton.on('pointerup', () => {
+                this.scene.stop ('StartScreen')
+                this.scene.start ('FirstScene')
+
+            })
+
 
         const instructionsButton = this.add.rectangle(400, 260, 150, 50, 0x6fc4fc);
             instructionsButton.setInteractive();
@@ -63,16 +62,18 @@ class InstructionScreen extends Phaser.Scene {
       
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
+        // const logo = this.add.image(400, 150, 'logo');
       
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        // this.tweens.add({
+        //     targets: logo,
+        //     y: 450,
+        //     duration: 2000,
+        //     ease: "Power2",
+        //     yoyo: true,
+        //     loop: -1
+        // });
+
+        
     }
 
 
