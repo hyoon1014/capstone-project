@@ -23,6 +23,17 @@ class StartScreen extends Phaser.Scene
                 this.scene.start ('FirstScene')
 
             })
+        
+        const playButtonText = this.add.text(175, 250, "Play", {fill: '#83a1a7'});
+            playButtonText.setInteractive();
+
+            playButtonText.on('pointerover', () => playButtonText.setStyle({fill: '#fef01a'}) )
+                .on('pointerout', () => playButtonText.setStyle({ fill: '#83a1a7'}))
+
+            playButtonText.on('pointerup', () => {
+                this.scene.stop ('StartScreen')
+                this.scene.start ('FirstScene')
+            })
 
 
         const instructionsButton = this.add.rectangle(400, 260, 150, 50, 0x6fc4fc);
