@@ -10,7 +10,7 @@ class StartScreen extends Phaser.Scene
 
     preload ()
     {
-    
+        
     }
       
     create ()
@@ -68,7 +68,7 @@ class InstructionScreen extends Phaser.Scene {
     }
     preload ()
     {
-        this.load.image('logo', logoImg);
+        // this.load.image('logo', logoImg);
     }
       
     create ()
@@ -83,8 +83,13 @@ class InstructionScreen extends Phaser.Scene {
         //     yoyo: true,
         //     loop: -1
         // });
+        const instructions = [
+            "Instructions here"
+        ];
 
-        
+        const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Arial', color: '#fef01a'});
+
+ 
     }
 
 
