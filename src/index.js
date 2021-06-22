@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
 
+import FryingPan from './assets/fryingpan.jpeg';
+
 class StartScreen extends Phaser.Scene
 {
     constructor ()
@@ -16,24 +18,26 @@ class StartScreen extends Phaser.Scene
     create ()
     {
         const playButton = this.add.rectangle(200, 260, 150, 50, 0x6fc4fc);
-            playButton.setInteractive();
+        
+        playButton.setInteractive();
 
-            playButton.on('pointerup', () => {
-                this.scene.stop ('StartScreen')
-                this.scene.start ('FirstScene')
+        playButton.on('pointerup', () => {
+            this.scene.stop ('StartScreen')
+            this.scene.start ('FirstScene')
 
-            })
+        })
         
         const playButtonText = this.add.text(175, 250, "Play", {fill: '#83a1a7'});
-            playButtonText.setInteractive();
+        
+        playButtonText.setInteractive();
 
-            playButtonText.on('pointerover', () => playButtonText.setStyle({fill: '#fef01a'}) )
-                .on('pointerout', () => playButtonText.setStyle({ fill: '#83a1a7'}))
+        playButtonText.on('pointerover', () => playButtonText.setStyle({fill: '#fef01a'}) )
+            .on('pointerout', () => playButtonText.setStyle({ fill: '#83a1a7'}))
 
-            playButtonText.on('pointerup', () => {
-                this.scene.stop ('StartScreen')
-                this.scene.start ('FirstScene')
-            })
+        playButtonText.on('pointerup', () => {
+            this.scene.stop ('StartScreen')
+            this.scene.start ('FirstScene')
+        })
 
 
         const instructionsButton = this.add.rectangle(400, 260, 150, 50, 0x6fc4fc);
@@ -58,6 +62,35 @@ class StartScreen extends Phaser.Scene
             })
 
     }
+}
+
+class FirstScene extends Phaser.Scene {
+    constructor () {
+
+        super({key: 'FirstScene'});
+
+    }
+    preload () 
+    {
+        this.load.image('fryingpan', FryingPan);
+    }
+    create () 
+    {
+
+        const firstRoom = this.add.rectangle(400, 350, 400, 300, 0xa55005);
+        
+        const fryingPan = this.add.sprite(400, 350, 'fryingpan');
+
+        fryingPan.setScale(.1);
+
+        fryingPan.setInteractive();
+
+        fryingPan.on('pointerup', () => {
+            this.add.rectangle(450, 350, 50, 25, 0xffffff);
+            this.add.text(425, 350, "Use", { fill: '#002bff' });
+        })
+    }
+
 }
 
 class InstructionScreen extends Phaser.Scene {
@@ -87,7 +120,7 @@ class InstructionScreen extends Phaser.Scene {
             "Instructions here"
         ];
 
-        const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Arial', color: '#fef01a'});
+        const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Verdana', color: '#fef01a'});
 
  
     }
@@ -100,7 +133,7 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: [StartScreen, InstructionScreen]
+    scene: [StartScreen, InstructionScreen, FirstScene]
 };
 
 const game = new Phaser.Game(config);
