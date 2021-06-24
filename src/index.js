@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
 
 import FryingPan from './assets/fryingpan.jpeg';
+import KitchenSink from './assets/kitchensink.png';
 
 class StartScreen extends Phaser.Scene
 {
@@ -73,6 +74,7 @@ class FirstScene extends Phaser.Scene {
     preload () 
     {
         this.load.image('fryingpan', FryingPan);
+        this.load.image('kitchensink', KitchenSink);
     }
     create () 
     {
@@ -85,9 +87,31 @@ class FirstScene extends Phaser.Scene {
 
         fryingPan.setInteractive();
 
+        fryingPan.on('pointerover', function () {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        fryingPan.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
         fryingPan.on('pointerup', () => {
             this.add.rectangle(450, 350, 50, 25, 0xffffff);
-            this.add.text(425, 350, "Use", { fill: '#002bff' });
+            this.add.text(425, 345, "Use", { fill: '#002bff' });
+        })
+
+        const kitchenSink = this.add.sprite(500, 350, 'kitchensink');
+
+        kitchenSink.setScale(.05);
+
+        kitchenSink.setInteractive();
+
+        kitchenSink.on('pointerover', function () {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        kitchenSink.on('pointerout', function () {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
         })
     }
 
