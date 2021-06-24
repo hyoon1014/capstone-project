@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
+import Button from './tools/button'
 
 import FryingPan from './assets/fryingpan.jpeg';
 import KitchenSink from './assets/kitchensink.png';
@@ -125,28 +125,25 @@ class InstructionScreen extends Phaser.Scene {
     }
     preload ()
     {
-        // this.load.image('logo', logoImg);
+
     }
       
     create ()
     {
-        // const logo = this.add.image(400, 150, 'logo');
-      
-        // this.tweens.add({
-        //     targets: logo,
-        //     y: 450,
-        //     duration: 2000,
-        //     ease: "Power2",
-        //     yoyo: true,
-        //     loop: -1
-        // });
+
         const instructions = [
             "Instructions here"
         ];
 
         const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Verdana', color: '#fef01a'});
 
- 
+        const backButton = new Button(400, 500, 'Back', this, () => {
+            this.scene.stop('InstructionScreen')
+            this.scene.start('StartScreen')
+        } )
+
+        backButton.button.setStyle({ fontFamily: 'Verdana' })
+
     }
 
 
