@@ -96,8 +96,16 @@ class FirstScene extends Phaser.Scene {
         })
 
         fryingPan.on('pointerup', () => {
-            this.add.rectangle(450, 350, 50, 25, 0xffffff);
-            this.add.text(425, 345, "Use", { fill: '#002bff' });
+            // this.add.rectangle(450, 350, 50, 25, 0xffffff);
+            // this.add.text(425, 345, "Use", { fill: '#002bff' });
+            const useButton = new Button(450, 350, 'Use', this, () => {
+                
+            })
+
+            const closeButton = new Button(450, 400, 'Close', this, () => {
+                closeButton.button.destroy();
+                useButton.button.destroy();
+            })
         })
 
         const kitchenSink = this.add.sprite(500, 350, 'kitchensink');
@@ -112,6 +120,17 @@ class FirstScene extends Phaser.Scene {
 
         kitchenSink.on('pointerout', function () {
             this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        kitchenSink.on('pointerup', () => {
+            const useButton = new Button(550, 350, 'Use', this, () => {
+            
+            })
+            
+            const closeButton = new Button(550, 400, 'Close', this, () => {
+                closeButton.button.destroy();
+                useButton.button.destroy();
+            })
         })
     }
 
