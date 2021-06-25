@@ -3,6 +3,7 @@ import Button from './tools/button'
 
 import FryingPan from './assets/fryingpan.jpeg';
 import KitchenSink from './assets/kitchensink.png';
+import Bear from './assets/spritebear.png';
 
 class StartScreen extends Phaser.Scene
 {
@@ -75,13 +76,18 @@ class FirstScene extends Phaser.Scene {
     {
         this.load.image('fryingpan', FryingPan);
         this.load.image('kitchensink', KitchenSink);
+        this.load.image('bear', Bear);
     }
     create () 
     {
 
-        const firstRoom = this.add.rectangle(400, 350, 400, 300, 0xa55005);
+        const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
-        const fryingPan = this.add.sprite(400, 350, 'fryingpan');
+        const bear = this.add.sprite(200, 350, 'bear');
+
+        bear.setScale(1);
+
+        const fryingPan = this.add.sprite(300, 350, 'fryingpan');
 
         fryingPan.setScale(.1);
 
@@ -108,7 +114,7 @@ class FirstScene extends Phaser.Scene {
             })
         })
 
-        const kitchenSink = this.add.sprite(500, 350, 'kitchensink');
+        const kitchenSink = this.add.sprite(400, 350, 'kitchensink');
 
         kitchenSink.setScale(.05);
 
@@ -123,14 +129,16 @@ class FirstScene extends Phaser.Scene {
         })
 
         kitchenSink.on('pointerup', () => {
-            const useButton = new Button(550, 350, 'Use', this, () => {
             
+            const useButton = new Button(470, 350, 'Turn off', this, () => {
+
             })
             
-            const closeButton = new Button(550, 400, 'Close', this, () => {
+            const closeButton = new Button(470, 400, 'Close', this, () => {
                 closeButton.button.destroy();
                 useButton.button.destroy();
-            })
+
+                })
         })
     }
 
