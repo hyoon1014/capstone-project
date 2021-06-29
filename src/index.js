@@ -6,6 +6,9 @@ import KitchenSink from './assets/kitchensink.png';
 import Bear from './assets/spritebear.png';
 
 import Bathroom from './assets/bathroom.png';
+import Toilet from './assets/toilet.png';
+import Shower from './assets/showerset.png';
+import Washer from './assets/washer.png';
 
 class StartScreen extends Phaser.Scene
 {
@@ -80,6 +83,9 @@ class FirstScene extends Phaser.Scene {
         // this.load.image('kitchensink', KitchenSink);
         // this.load.image('bear', Bear);
         this.load.image('bathroom', Bathroom);
+        this.load.image('toilet', Toilet);
+        this.load.image('shower', Shower);
+        this.load.image('washer', Washer);
     }
     create () 
     {
@@ -88,6 +94,59 @@ class FirstScene extends Phaser.Scene {
         bathroom.setScale(.5);
 
         bathroom.setOrigin(0,0);
+
+
+        const toilet = this.add.sprite(75, 130, 'toilet');
+
+        toilet.setInteractive();
+
+        toilet.on('pointerover', function() {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        toilet.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+
+        const shower = this.add.sprite(484, 128, 'shower');
+
+        shower.setInteractive();
+
+        shower.on('pointerover', function() {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        shower.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+
+        const washer = this.add.sprite(152, 472, 'washer');
+
+        washer.setInteractive();
+
+        washer.on('pointerover', function() {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        washer.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        washer.on('pointerup', () => {
+            
+                const useButton = new Button(230, 472, 'Turn off', this, () => {
+    
+                })
+                
+                const closeButton = new Button(230, 510, 'Close', this, () => {
+                    closeButton.button.destroy();
+                    useButton.button.destroy();
+    
+                    })
+            })
+
 
         // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
