@@ -5,6 +5,8 @@ import FryingPan from './assets/fryingpan.jpeg';
 import KitchenSink from './assets/kitchensink.png';
 import Bear from './assets/spritebear.png';
 
+import Bathroom from './assets/bathroom.png';
+
 class StartScreen extends Phaser.Scene
 {
     constructor ()
@@ -74,72 +76,78 @@ class FirstScene extends Phaser.Scene {
     }
     preload () 
     {
-        this.load.image('fryingpan', FryingPan);
-        this.load.image('kitchensink', KitchenSink);
-        this.load.image('bear', Bear);
+        // this.load.image('fryingpan', FryingPan);
+        // this.load.image('kitchensink', KitchenSink);
+        // this.load.image('bear', Bear);
+        this.load.image('bathroom', Bathroom);
     }
     create () 
     {
+        const bathroom = this.add.image(0, 0, 'bathroom');
 
-        const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
+        bathroom.setScale(.5);
+
+        bathroom.setOrigin(0,0);
+
+        // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
-        const bear = this.add.sprite(200, 350, 'bear');
+        // const bear = this.add.sprite(200, 350, 'bear');
 
-        bear.setScale(1);
+        // bear.setScale(1);
 
-        const fryingPan = this.add.sprite(300, 350, 'fryingpan');
+        // const fryingPan = this.add.sprite(300, 350, 'fryingpan');
 
-        fryingPan.setScale(.1);
+        // fryingPan.setScale(.1);
 
-        fryingPan.setInteractive();
+        // fryingPan.setInteractive();
 
-        fryingPan.on('pointerover', function () {
-            this.setBlendMode(Phaser.BlendModes.SCREEN);
-        })
+        // fryingPan.on('pointerover', function () {
+        //     this.setBlendMode(Phaser.BlendModes.SCREEN);
+        // })
 
-        fryingPan.on('pointerout', function() {
-            this.setBlendMode(Phaser.BlendModes.NORMAL);
-        })
+        // fryingPan.on('pointerout', function() {
+        //     this.setBlendMode(Phaser.BlendModes.NORMAL);
+        // })
 
-        fryingPan.on('pointerup', () => {
-            // this.add.rectangle(450, 350, 50, 25, 0xffffff);
-            // this.add.text(425, 345, "Use", { fill: '#002bff' });
-            const useButton = new Button(450, 350, 'Use', this, () => {
+        // fryingPan.on('pointerup', () => {
+        //     // this.add.rectangle(450, 350, 50, 25, 0xffffff);
+        //     // this.add.text(425, 345, "Use", { fill: '#002bff' });
+        //     const useButton = new Button(375, 350, 'Use', this, () => {
                 
-            })
+        //     })
 
-            const closeButton = new Button(450, 400, 'Close', this, () => {
-                closeButton.button.destroy();
-                useButton.button.destroy();
-            })
-        })
+        //     const closeButton = new Button(375, 400, 'Close', this, () => {
+        //         closeButton.button.destroy();
+        //         useButton.button.destroy();
+        //     })
+        // })
 
-        const kitchenSink = this.add.sprite(400, 350, 'kitchensink');
+        // const kitchenSink = this.add.sprite(400, 350, 'kitchensink');
 
-        kitchenSink.setScale(.05);
+        // kitchenSink.setScale(.05);
 
-        kitchenSink.setInteractive();
+        // kitchenSink.setInteractive();
 
-        kitchenSink.on('pointerover', function () {
-            this.setBlendMode(Phaser.BlendModes.SCREEN);
-        })
+        // kitchenSink.on('pointerover', function () {
+        //     this.setBlendMode(Phaser.BlendModes.SCREEN);
+        // })
 
-        kitchenSink.on('pointerout', function () {
-            this.setBlendMode(Phaser.BlendModes.NORMAL);
-        })
+        // kitchenSink.on('pointerout', function () {
+        //     this.setBlendMode(Phaser.BlendModes.NORMAL);
+        // })
 
-        kitchenSink.on('pointerup', () => {
+        // kitchenSink.on('pointerup', () => {
             
-            const useButton = new Button(470, 350, 'Turn off', this, () => {
+        //     const useButton = new Button(470, 350, 'Turn off', this, () => {
 
-            })
+        //     })
             
-            const closeButton = new Button(470, 400, 'Close', this, () => {
-                closeButton.button.destroy();
-                useButton.button.destroy();
+        //     const closeButton = new Button(470, 400, 'Close', this, () => {
+        //         closeButton.button.destroy();
+        //         useButton.button.destroy();
 
-                })
-        })
+        //         })
+        // })
     }
 
 }
@@ -179,8 +187,8 @@ class InstructionScreen extends Phaser.Scene {
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: 822,
+    height: 632,
     scene: [StartScreen, InstructionScreen, FirstScene]
 };
 
