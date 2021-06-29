@@ -75,7 +75,7 @@ class FirstScene extends Phaser.Scene {
     constructor () {
 
         super({key: 'FirstScene'});
-
+        this.score = 0
     }
     preload () 
     {
@@ -89,6 +89,8 @@ class FirstScene extends Phaser.Scene {
     }
     create () 
     {
+        
+
         const bathroom = this.add.image(0, 0, 'bathroom');
 
         bathroom.setScale(.5);
@@ -146,7 +148,9 @@ class FirstScene extends Phaser.Scene {
     
                     })
             })
+        
 
+        const score = this.add.text(700, 150, this.score, { fill: '#ff00ae' });
 
         // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
