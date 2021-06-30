@@ -10,6 +10,24 @@ import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
 
+let gameState = {}
+
+function renderDialog (scene, text) {
+    if (gameState.dialogBox) {
+        gameState.dialogBox.destroy();
+        gameState.dialogText.destroy();
+    }
+
+    gameState.dialogBox = scene.add.rectangle(75, 350, 600, 200, 0xffffff)
+    gameState.dialogBox.strokeColor = 0x000000;
+    gameState.dialogBox.strokeWeight = 3;
+    gameState.dialogBox.isStroked = true;
+    gameState.dialogBox.setOrigin(0,0);
+
+    gameState.dialogText = scene.add.text(90, 400, text, { fill: "#000000" });
+    gameState.dialogText.setOrigin(0,0);
+}
+
 class StartScreen extends Phaser.Scene
 {
     constructor ()
@@ -102,12 +120,16 @@ class FirstScene extends Phaser.Scene {
 
         toilet.setInteractive();
 
-        toilet.on('pointerover', function() {
-            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        toilet.on('pointerover', () => {
+            toilet.setBlendMode(Phaser.BlendModes.SCREEN);
         })
 
-        toilet.on('pointerout', function() {
-            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        toilet.on('pointerdown', () => {
+            renderDialog(this, "Would you like to flush the toilet?")
+        })
+
+        toilet.on('pointerout', () => {
+            toilet.setBlendMode(Phaser.BlendModes.NORMAL);
         })
 
 
@@ -149,6 +171,8 @@ class FirstScene extends Phaser.Scene {
                     })
             })
         
+
+        // renderDialog(this, "Herro herro")
 
         const score = this.add.text(700, 150, this.score, { fill: '#ff00ae' });
 
