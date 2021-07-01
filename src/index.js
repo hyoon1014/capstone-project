@@ -27,7 +27,7 @@ function renderDialog (scene, text) {
     gameState.dialogBox.isStroked = true;
     gameState.dialogBox.setOrigin(0,0);
 
-    gameState.dialogText = scene.add.text(90, 400, text, { fill: "#000000" });
+    gameState.dialogText = scene.add.text(100, 400, text, { fill: "#000000" });
     gameState.dialogText.setOrigin(0,0);
 }
 
@@ -152,14 +152,24 @@ class FirstScene extends Phaser.Scene {
             renderDialog(this, "How long should you take a shower?")
 
             const CorrectShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
+
             CorrectShowerButton.setInteractive();
 
             CorrectShowerButton.on('pointerover', () => CorrectShowerButton.setStyle({ fill: '#118ac6' }))
                 .on('pointerout', () => CorrectShowerButton.setStyle({ fill: '#000' }))
+                .on('pointerup', () => {
+                    CorrectShowerButton.setStyle({ fill: '#008000' });
+                    gameState.score += 10;
+                    gameState.scoreText.setText(`${gameState.score}`);
+                    
+                    
+                })
 
             
             const WrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
+
             WrongShowerButton.setInteractive();
+
             WrongShowerButton.on('pointerover', () => WrongShowerButton.setStyle({ fill: '#118ac6' }))
                 .on('pointerout', () => WrongShowerButton.setStyle({ fill: '#000' }))
 
@@ -186,6 +196,7 @@ class FirstScene extends Phaser.Scene {
             renderDialog(this, "How should you wash your laundry?")
 
             const WrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
+
             WrongWasherButton.setInteractive();
 
             WrongWasherButton.on('pointerover', () => WrongWasherButton.setStyle({ fill: '#118ac6' }))
@@ -193,12 +204,14 @@ class FirstScene extends Phaser.Scene {
 
             
             const CorrectWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
+
             CorrectWasherButton.setInteractive();
+
             CorrectWasherButton.on('pointerover', () => CorrectWasherButton.setStyle({ fill: '#118ac6' }))
                 .on('pointerout', () => CorrectWasherButton.setStyle({ fill: '#000' }))
-                .on('pointerdown', () => {
+                .on('pointerup', () => {
                     gameState.score += 10;
-                    gameState.scoreText.setText(`${gameState.score}`)
+                    gameState.scoreText.setText(`${gameState.score}`);
 
                     gameState.dialogBox.destroy();
                     gameState.dialogText.destroy();
@@ -281,6 +294,10 @@ class FirstScene extends Phaser.Scene {
 
         //         })
         // })
+    }
+
+    update() {
+    
     }
 
 }
