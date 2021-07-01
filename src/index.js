@@ -151,7 +151,8 @@ class FirstScene extends Phaser.Scene {
 
         shower.on('pointerdown', () => {
             renderDialog(this, "How long should you take a shower?")
-
+            
+            // const CorrectShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
             const CorrectShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
 
             CorrectShowerButton.setInteractive();
@@ -176,14 +177,27 @@ class FirstScene extends Phaser.Scene {
             })
 
             
-            const WrongShowerButton = this.add.text(150, 480, "Less than 5 minutes", { fill: '#000' });
+            const WrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
 
             WrongShowerButton.setInteractive();
 
-            WrongShowerButton.on('pointerover', () => WrongShowerButton.setStyle({ fill: '#118ac6' }))
-                WrongShowerButton.on('pointerout', () => WrongShowerButton.setStyle({ fill: '#000' }))
+            WrongShowerButton.on('pointerover', () => {
+                if(!gameState.showerIsAnswered) {
+                    WrongShowerButton.setStyle({ fill: '#118ac6' }) 
+                }
+            }) 
 
-            // const CorrectShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
+            WrongShowerButton.on('pointerout', () => {
+                if(!gameState.showerIsAnswered) {
+                    WrongShowerButton.setStyle({ fill: '#000' }) 
+                }
+            })
+
+            WrongShowerButton.on('pointerup', () => {
+                gameState.showerIsAnswered = true;
+                WrongShowerButton.setStyle({ fill: '#f00' });
+            })
+
         })
 
 
