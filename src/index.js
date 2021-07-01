@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Button from './tools/button'
+import DialogButton from './tools/dialogbutton'
 
 import FryingPan from './assets/fryingpan.jpeg';
 import KitchenSink from './assets/kitchensink.png';
@@ -147,7 +148,24 @@ class FirstScene extends Phaser.Scene {
 
         shower.on('pointerdown', () => {
             renderDialog(this, "How long should you take a shower?")
+
+            const CorrectShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
+            CorrectShowerButton.setInteractive();
+
+            CorrectShowerButton.on('pointerover', () => CorrectShowerButton.setStyle({ fill: '#118ac6' }))
+                .on('pointerout', () => CorrectShowerButton.setStyle({ fill: '#000' }))
+
+            
+            const WrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
+            WrongShowerButton.setInteractive();
+            WrongShowerButton.on('pointerover', () => WrongShowerButton.setStyle({ fill: '#118ac6' }))
+                .on('pointerout', () => WrongShowerButton.setStyle({ fill: '#000' }))
+
+            // const CorrectShowerButton = new DialogButton(200, 450, 'Less than 5 minutes', this, () => {})
         })
+
+
+
 
 
         const washer = this.add.sprite(152, 472, 'washer');
