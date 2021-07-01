@@ -116,21 +116,21 @@ class FirstScene extends Phaser.Scene {
         bathroom.setOrigin(0,0);
 
 
-        const toilet = this.add.sprite(75, 130, 'toilet');
+        // const toilet = this.add.sprite(75, 130, 'toilet');
 
-        toilet.setInteractive();
+        // toilet.setInteractive();
 
-        toilet.on('pointerover', () => {
-            toilet.setBlendMode(Phaser.BlendModes.SCREEN);
-        })
+        // toilet.on('pointerover', () => {
+        //     toilet.setBlendMode(Phaser.BlendModes.SCREEN);
+        // })
 
-        toilet.on('pointerdown', () => {
-            renderDialog(this, "Would you like to flush the toilet?")
-        })
+        // toilet.on('pointerdown', () => {
+        //     renderDialog(this, "Would you like to flush the toilet?")
+        // })
 
-        toilet.on('pointerout', () => {
-            toilet.setBlendMode(Phaser.BlendModes.NORMAL);
-        })
+        // toilet.on('pointerout', () => {
+        //     toilet.setBlendMode(Phaser.BlendModes.NORMAL);
+        // })
 
 
         const shower = this.add.sprite(484, 128, 'shower');
@@ -143,6 +143,10 @@ class FirstScene extends Phaser.Scene {
 
         shower.on('pointerout', function() {
             this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        shower.on('pointerdown', () => {
+            renderDialog(this, "How long should you take a shower?")
         })
 
 
@@ -158,18 +162,21 @@ class FirstScene extends Phaser.Scene {
             this.setBlendMode(Phaser.BlendModes.NORMAL);
         })
 
-        washer.on('pointerup', () => {
+        washer.on('pointerdown', () => {
+            renderDialog(this, "How should you wash your laundry?")
+        })
+        // washer.on('pointerup', () => {
             
-                const useButton = new Button(230, 472, 'Turn off', this, () => {
+        //         const useButton = new Button(230, 472, 'Turn off', this, () => {
     
-                })
+        //         })
                 
-                const closeButton = new Button(230, 510, 'Close', this, () => {
-                    closeButton.button.destroy();
-                    useButton.button.destroy();
+        //         const closeButton = new Button(230, 510, 'Close', this, () => {
+        //             closeButton.button.destroy();
+        //             useButton.button.destroy();
     
-                    })
-            })
+        //             })
+        //     })
         
 
         // renderDialog(this, "Herro herro")
