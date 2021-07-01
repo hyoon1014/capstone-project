@@ -4,7 +4,8 @@ class DialogButton {
         .setOrigin(0.5)
         .setPadding(5)
         .setStyle({ backgroundcolor: '#FFF' })
-        .setInteractive({ useHandCurse: true })
+        .setStyle({ fill: '#000' })
+        .setInteractive({ useHandCursor: true })
         .on('pointerdown', () => callback())
         .on('pointerover', () => this.button.setStyle({ fill: '#118ac6'}))
         .on('pointerout', () => this.button.setStyle({ fill: '#000' }));

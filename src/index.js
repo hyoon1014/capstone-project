@@ -182,6 +182,18 @@ class FirstScene extends Phaser.Scene {
 
         washer.on('pointerdown', () => {
             renderDialog(this, "How should you wash your laundry?")
+
+            const WrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
+            WrongWasherButton.setInteractive();
+
+            WrongWasherButton.on('pointerover', () => WrongWasherButton.setStyle({ fill: '#118ac6' }))
+                .on('pointerout', () => WrongWasherButton.setStyle({ fill: '#000' }))
+
+            
+            const CorrectWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
+            CorrectWasherButton.setInteractive();
+            CorrectWasherButton.on('pointerover', () => CorrectWasherButton.setStyle({ fill: '#118ac6' }))
+                .on('pointerout', () => CorrectWasherButton.setStyle({ fill: '#000' }))
         })
         // washer.on('pointerup', () => {
             
@@ -197,7 +209,6 @@ class FirstScene extends Phaser.Scene {
         //     })
         
 
-        // renderDialog(this, "Herro herro")
 
         const score = this.add.text(700, 150, this.score, { fill: '#ff00ae' });
 
