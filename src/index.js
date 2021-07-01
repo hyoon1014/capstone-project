@@ -12,7 +12,8 @@ import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
 
 let gameState = {
-    score: 0
+    score: 0, 
+    showerIsAnswered: false
 };
 
 function renderDialog (scene, text) {
@@ -155,25 +156,34 @@ class FirstScene extends Phaser.Scene {
 
             CorrectShowerButton.setInteractive();
 
-            CorrectShowerButton.on('pointerover', () => CorrectShowerButton.setStyle({ fill: '#118ac6' }))
-                .on('pointerout', () => CorrectShowerButton.setStyle({ fill: '#000' }))
-                .on('pointerup', () => {
-                    CorrectShowerButton.setStyle({ fill: '#008000' });
-                    gameState.score += 10;
-                    gameState.scoreText.setText(`${gameState.score}`);
-                    
-                    
-                })
+            CorrectShowerButton.on('pointerover', () => {
+                if(!gameState.showerIsAnswered) {
+                    CorrectShowerButton.setStyle({ fill: '#118ac6' })
+                }
+            })
+            
+            CorrectShowerButton.on('pointerout', () => {
+                if(!gameState.showerIsAnswered) {
+                    CorrectShowerButton.setStyle({ fill: '#000' })
+                }
+            })
+
+            CorrectShowerButton.on('pointerup', () => {
+                gameState.showerIsAnswered = true;
+                CorrectShowerButton.setStyle({ fill: '#008000' });
+                gameState.score += 10;
+                gameState.scoreText.setText(`${gameState.score}`); 
+            })
 
             
-            const WrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
+            const WrongShowerButton = this.add.text(150, 480, "Less than 5 minutes", { fill: '#000' });
 
             WrongShowerButton.setInteractive();
 
             WrongShowerButton.on('pointerover', () => WrongShowerButton.setStyle({ fill: '#118ac6' }))
-                .on('pointerout', () => WrongShowerButton.setStyle({ fill: '#000' }))
+                WrongShowerButton.on('pointerout', () => WrongShowerButton.setStyle({ fill: '#000' }))
 
-            // const CorrectShowerButton = new DialogButton(200, 450, 'Less than 5 minutes', this, () => {})
+            // const CorrectShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
         })
 
 
