@@ -11,7 +11,9 @@ import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
 
-let gameState = {}
+let gameState = {
+    score: 0
+};
 
 function renderDialog (scene, text) {
     if (gameState.dialogBox) {
@@ -194,6 +196,15 @@ class FirstScene extends Phaser.Scene {
             CorrectWasherButton.setInteractive();
             CorrectWasherButton.on('pointerover', () => CorrectWasherButton.setStyle({ fill: '#118ac6' }))
                 .on('pointerout', () => CorrectWasherButton.setStyle({ fill: '#000' }))
+                .on('pointerdown', () => {
+                    gameState.score += 10;
+                    gameState.scoreText.setText(`${gameState.score}`)
+
+                    gameState.dialogBox.destroy();
+                    gameState.dialogText.destroy();
+                    CorrectWasherButton.destroy();
+                    WrongWasherButton.destroy();
+                })
         })
         // washer.on('pointerup', () => {
             
@@ -209,8 +220,7 @@ class FirstScene extends Phaser.Scene {
         //     })
         
 
-
-        const score = this.add.text(700, 150, this.score, { fill: '#ff00ae' });
+       gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
 
         // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
