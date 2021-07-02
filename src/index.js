@@ -1,6 +1,7 @@
-import Phaser from 'phaser';
+import Phaser, { Core } from 'phaser';
 import Button from './tools/button'
 import DialogButton from './tools/dialogbutton'
+import CloseButton from './tools/closebutton'
 
 import FryingPan from './assets/fryingpan.jpeg';
 import KitchenSink from './assets/kitchensink.png';
@@ -152,55 +153,67 @@ class FirstScene extends Phaser.Scene {
 
         shower.on('pointerdown', () => {
             renderDialog(this, "How long should you take a shower?")
+
+            const closeButton = new CloseButton(650, 350, 'X', this, () => {})
+
+            closeButton.button.setInteractive();
+
+            closeButton.button.on('pointerdown', () => {
+                gameState.dialogBox.destroy();
+                gameState.dialogText.destroy();
+                correctShowerButton.destroy();
+                wrongShowerButton.destroy();
+                closeButton.button.destroy();
+            })
             
-            // const CorrectShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
-            const CorrectShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
+            // const correctShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
 
-            CorrectShowerButton.setInteractive();
+            const correctShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
 
-            CorrectShowerButton.on('pointerover', () => {
+            correctShowerButton.setInteractive();
+
+            correctShowerButton.on('pointerover', () => {
                 if(!gameState.showerIsAnswered) {
-                    CorrectShowerButton.setStyle({ fill: '#118ac6' })
+                    correctShowerButton.setStyle({ fill: '#118ac6' })
                 }
             })
             
-            CorrectShowerButton.on('pointerout', () => {
+            correctShowerButton.on('pointerout', () => {
                 if(!gameState.showerIsAnswered) {
-                    CorrectShowerButton.setStyle({ fill: '#000' })
+                    correctShowerButton.setStyle({ fill: '#000' })
                 }
             })
 
-            CorrectShowerButton.on('pointerup', () => {
+            correctShowerButton.on('pointerup', () => {
                 gameState.showerIsAnswered = true;
-                CorrectShowerButton.setStyle({ fill: '#008000' });
+                correctShowerButton.setStyle({ fill: '#008000' });
                 gameState.score += 10;
                 gameState.scoreText.setText(`${gameState.score}`); 
             })
 
             
-            const WrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
+            const wrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
 
-            WrongShowerButton.setInteractive();
+            wrongShowerButton.setInteractive();
 
-            WrongShowerButton.on('pointerover', () => {
+            wrongShowerButton.on('pointerover', () => {
                 if(!gameState.showerIsAnswered) {
-                    WrongShowerButton.setStyle({ fill: '#118ac6' }) 
+                    wrongShowerButton.setStyle({ fill: '#118ac6' }) 
                 }
             }) 
 
-            WrongShowerButton.on('pointerout', () => {
+            wrongShowerButton.on('pointerout', () => {
                 if(!gameState.showerIsAnswered) {
-                    WrongShowerButton.setStyle({ fill: '#000' }) 
+                    wrongShowerButton.setStyle({ fill: '#000' }) 
                 }
             })
 
-            WrongShowerButton.on('pointerup', () => {
+            wrongShowerButton.on('pointerup', () => {
                 gameState.showerIsAnswered = true;
-                WrongShowerButton.setStyle({ fill: '#f00' });
+                wrongShowerButton.setStyle({ fill: '#f00' });
             })
 
         })
-
 
 
 
@@ -220,53 +233,53 @@ class FirstScene extends Phaser.Scene {
         washer.on('pointerdown', () => {
             renderDialog(this, "How should you wash your laundry?")
 
-            const WrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
+            const wrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
 
-            WrongWasherButton.setInteractive();
+            wrongWasherButton.setInteractive();
 
-            WrongWasherButton.on('pointerover', () => {
+            wrongWasherButton.on('pointerover', () => {
                 if(!gameState.washerIsAnswered) {
-                    WrongWasherButton.setStyle({ fill: '#118ac6' })
+                    wrongWasherButton.setStyle({ fill: '#118ac6' })
                 }
             })
 
-            WrongWasherButton.on('pointerout', () => {
+            wrongWasherButton.on('pointerout', () => {
                 if(!gameState.washerIsAnswered){
-                    WrongWasherButton.setStyle({ fill: '#000' })
+                    wrongWasherButton.setStyle({ fill: '#000' })
                 }
             })
 
-            WrongWasherButton.on('pointerup', () => {
+            wrongWasherButton.on('pointerup', () => {
                 gameState.washerIsAnswered = true;
-                WrongWasherButton.setStyle({ fill: '#f00' })
+                wrongWasherButton.setStyle({ fill: '#f00' })
             })
 
             
-            const CorrectWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
+            const correctWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
 
-            CorrectWasherButton.setInteractive();
+            correctWasherButton.setInteractive();
 
-            CorrectWasherButton.on('pointerover', () => {
+            correctWasherButton.on('pointerover', () => {
                 if(!gameState.washerIsAnswered) {
-                    CorrectWasherButton.setStyle({ fill: '#118ac6' })
+                    correctWasherButton.setStyle({ fill: '#118ac6' })
                 }
             })
 
-            CorrectWasherButton.on('pointerout', () => {
+            correctWasherButton.on('pointerout', () => {
                 if(!gameState.washerIsAnswered) {
-                    CorrectWasherButton.setStyle({ fill: '#000' })
+                    correctWasherButton.setStyle({ fill: '#000' })
                 }
             })
-            CorrectWasherButton.on('pointerup', () => {
+            correctWasherButton.on('pointerup', () => {
                 if(gameState.washerIsAnswered = true) {
-                    CorrectWasherButton.setStyle({ fill: '#008000' });
+                    correctWasherButton.setStyle({ fill: '#008000' });
                     gameState.score += 10;
-                    gameState.scoreText.setText(`${gameState.score}`);
+                    gameState.scoreText.setText(`${ gameState.score }`);
                 } 
 
                     // gameState.dialogBox.destroy();
                     // gameState.dialogText.destroy();
-                    // CorrectWasherButton.destroy();
+                    // correctWasherButton.destroy();
                     // WrongWasherButton.destroy();
             })
         })
