@@ -233,6 +233,18 @@ class FirstScene extends Phaser.Scene {
         washer.on('pointerdown', () => {
             renderDialog(this, "How should you wash your laundry?")
 
+            const closeButton = new CloseButton(650, 350, 'X', this, () => {})
+
+            closeButton.button.setInteractive();
+
+            closeButton.button.on('pointerdown', () => {
+                gameState.dialogBox.destroy();
+                gameState.dialogText.destroy();
+                correctWasherButton.destroy();
+                wrongWasherButton.destroy();
+                closeButton.button.destroy();
+            })
+
             const wrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
 
             wrongWasherButton.setInteractive();
