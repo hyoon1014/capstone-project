@@ -12,11 +12,32 @@ import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
 
+
 let gameState = {
-    score: 0, 
+    score: 0,
     showerIsAnswered: false,
     washerIsAnswered: false
 };
+
+var timerText;
+var timedEvent;
+
+function formatTime(seconds){
+
+    var minutes = Math.floor(seconds/60);
+
+    var partInSeconds = seconds%60;
+
+    partInSeconds = partInSeconds.toString().padStart(2,'0');
+ 
+    return `${minutes}:${partInSeconds}`;
+}
+
+
+function onEvent (){
+this.initialTime -= 1; 
+timerText.setText(formatTime(this.initialTime));
+}
 
 function renderDialog (scene, text) {
     if (gameState.dialogBox) {
@@ -113,8 +134,6 @@ class FirstScene extends Phaser.Scene {
     }
     create () 
     {
-        
-
         const bathroom = this.add.image(0, 0, 'bathroom');
 
         bathroom.setScale(.5);
@@ -311,6 +330,15 @@ class FirstScene extends Phaser.Scene {
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
 
+       this.initialTime = 120;
+       timerText = this.add.text(680, 200, formatTime(this.initialTime), { fontSize: '30px' });
+       timedEvent = this.time.addEvent({
+           callback: onEvent,
+           delay: 1000,
+           callbackScope: this,
+           loop: true
+       })
+
         // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
         // const bear = this.add.sprite(200, 350, 'bear');
@@ -371,6 +399,7 @@ class FirstScene extends Phaser.Scene {
         //         })
         // })
     }
+
 
     update() {
     
