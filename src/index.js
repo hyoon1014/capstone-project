@@ -263,69 +263,82 @@ class FirstScene extends Phaser.Scene {
                 wrongWasherButton.destroy();
                 closeButton.button.destroy();
             })
+            const wrongWasherButton = new DialogButton(
+                150,
+                450,
+                "Larger loads with warm water",
+                this,
+                gameState,
+                'washerIsAnswered',
+                'wrong'
+            )
+            // const wrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
 
-            const wrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
+            // wrongWasherButton.setInteractive();
 
-            wrongWasherButton.setInteractive();
+            // wrongWasherButton.on('pointerover', () => {
+            //     if(!gameState.washerIsAnswered) {
+            //         wrongWasherButton.setStyle({ fill: '#118ac6' })
+            //     }
+            // })
 
-            wrongWasherButton.on('pointerover', () => {
-                if(!gameState.washerIsAnswered) {
-                    wrongWasherButton.setStyle({ fill: '#118ac6' })
-                }
-            })
+            // wrongWasherButton.on('pointerout', () => {
+            //     if(!gameState.washerIsAnswered){
+            //         wrongWasherButton.setStyle({ fill: '#000' })
+            //     }
+            // })
 
-            wrongWasherButton.on('pointerout', () => {
-                if(!gameState.washerIsAnswered){
-                    wrongWasherButton.setStyle({ fill: '#000' })
-                }
-            })
+            // wrongWasherButton.on('pointerdown', () => {
+            //     if(!gameState.washerIsAnswered){
+            //         gameState.washerIsAnswered = true;
+            //         wrongWasherButton.setStyle({ fill: '#f00' })
+            //         gameState.score -= 5;
+            //         gameState.scoreText.setText(`${ gameState.score }`);
+            //     }
+            // })
 
-            wrongWasherButton.on('pointerup', () => {
-                gameState.washerIsAnswered = true;
-                wrongWasherButton.setStyle({ fill: '#f00' })
-            })
+            const correctWasherButton = new DialogButton(
+                150, 
+                480, 
+                "Smaller loads with cold water", 
+                this, 
+                gameState, 
+                'washerIsAnswered', 
+                'correct'
+            )
 
-            
-            const correctWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
+            // const correctWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
 
-            correctWasherButton.setInteractive();
+            // correctWasherButton.setInteractive();
 
-            correctWasherButton.on('pointerover', () => {
-                if(!gameState.washerIsAnswered) {
-                    correctWasherButton.setStyle({ fill: '#118ac6' })
-                }
-            })
+            // correctWasherButton.on('pointerover', () => {
+            //     if (!gameState.washerIsAnswered) {
+            //         correctWasherButton.setStyle({ fill: '#118ac6' })
+            //     }
+            // })
 
-            correctWasherButton.on('pointerout', () => {
-                if(!gameState.washerIsAnswered) {
-                    correctWasherButton.setStyle({ fill: '#000' })
-                }
-            })
-            correctWasherButton.on('pointerup', () => {
-                if(gameState.washerIsAnswered = true) {
-                    correctWasherButton.setStyle({ fill: '#008000' });
-                    gameState.score += 10;
-                    gameState.scoreText.setText(`${ gameState.score }`);
-                } 
+            // correctWasherButton.on('pointerout', () => {
+            //     if (!gameState.washerIsAnswered) {
+            //         correctWasherButton.setStyle({ fill: '#000' })
+            //     }
+            // })
+            // correctWasherButton.on('pointerdown', () => {
+            //     if (!gameState.washerIsAnswered) {
+            //         gameState.washerIsAnswered = true;
+            //         correctWasherButton.setStyle({ fill: '#008000' });
+            //         gameState.score += 10;
+            //         gameState.scoreText.setText(`${ gameState.score }`);
+            //     }
+            //     if (gameState.washerIsAnswered) {
+                   
+            //     } 
 
-                    // gameState.dialogBox.destroy();
-                    // gameState.dialogText.destroy();
-                    // correctWasherButton.destroy();
-                    // WrongWasherButton.destroy();
-            })
+            //         gameState.dialogBox.destroy();
+            //         gameState.dialogText.destroy();
+            //         correctWasherButton.destroy();
+            //         WrongWasherButton.destroy();
+            // })
         })
-        // washer.on('pointerup', () => {
-            
-        //         const useButton = new Button(230, 472, 'Turn off', this, () => {
-    
-        //         })
-                
-        //         const closeButton = new Button(230, 510, 'Close', this, () => {
-        //             closeButton.button.destroy();
-        //             useButton.button.destroy();
-    
-        //             })
-        //     })
         
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
@@ -339,65 +352,7 @@ class FirstScene extends Phaser.Scene {
            loop: true
        })
 
-        // const firstRoom = this.add.rectangle(300, 350, 500, 400, 0xa55005);
         
-        // const bear = this.add.sprite(200, 350, 'bear');
-
-        // bear.setScale(1);
-
-        // const fryingPan = this.add.sprite(300, 350, 'fryingpan');
-
-        // fryingPan.setScale(.1);
-
-        // fryingPan.setInteractive();
-
-        // fryingPan.on('pointerover', function () {
-        //     this.setBlendMode(Phaser.BlendModes.SCREEN);
-        // })
-
-        // fryingPan.on('pointerout', function() {
-        //     this.setBlendMode(Phaser.BlendModes.NORMAL);
-        // })
-
-        // fryingPan.on('pointerup', () => {
-        //     // this.add.rectangle(450, 350, 50, 25, 0xffffff);
-        //     // this.add.text(425, 345, "Use", { fill: '#002bff' });
-        //     const useButton = new Button(375, 350, 'Use', this, () => {
-                
-        //     })
-
-        //     const closeButton = new Button(375, 400, 'Close', this, () => {
-        //         closeButton.button.destroy();
-        //         useButton.button.destroy();
-        //     })
-        // })
-
-        // const kitchenSink = this.add.sprite(400, 350, 'kitchensink');
-
-        // kitchenSink.setScale(.05);
-
-        // kitchenSink.setInteractive();
-
-        // kitchenSink.on('pointerover', function () {
-        //     this.setBlendMode(Phaser.BlendModes.SCREEN);
-        // })
-
-        // kitchenSink.on('pointerout', function () {
-        //     this.setBlendMode(Phaser.BlendModes.NORMAL);
-        // })
-
-        // kitchenSink.on('pointerup', () => {
-            
-        //     const useButton = new Button(470, 350, 'Turn off', this, () => {
-
-        //     })
-            
-        //     const closeButton = new Button(470, 400, 'Close', this, () => {
-        //         closeButton.button.destroy();
-        //         useButton.button.destroy();
-
-        //         })
-        // })
     }
 
 
