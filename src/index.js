@@ -185,52 +185,69 @@ class FirstScene extends Phaser.Scene {
                 closeButton.button.destroy();
             })
             
-            // const correctShowerButton = new DialogButton(150, 450, 'Less than 5 minutes', this, () => {})
+            const correctShowerButton = new DialogButton(
+                150, 
+                450, 
+                "Less than 5 minutes", 
+                this, 
+                gameState, 
+                'showerIsAnswered', 
+                'correct'
+            )
 
-            const correctShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
+            // const correctShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
 
-            correctShowerButton.setInteractive();
+            // correctShowerButton.setInteractive();
 
-            correctShowerButton.on('pointerover', () => {
-                if(!gameState.showerIsAnswered) {
-                    correctShowerButton.setStyle({ fill: '#118ac6' })
-                }
-            })
+            // correctShowerButton.on('pointerover', () => {
+            //     if(!gameState.showerIsAnswered) {
+            //         correctShowerButton.setStyle({ fill: '#118ac6' })
+            //     }
+            // })
             
-            correctShowerButton.on('pointerout', () => {
-                if(!gameState.showerIsAnswered) {
-                    correctShowerButton.setStyle({ fill: '#000' })
-                }
-            })
+            // correctShowerButton.on('pointerout', () => {
+            //     if(!gameState.showerIsAnswered) {
+            //         correctShowerButton.setStyle({ fill: '#000' })
+            //     }
+            // })
 
-            correctShowerButton.on('pointerup', () => {
-                gameState.showerIsAnswered = true;
-                correctShowerButton.setStyle({ fill: '#008000' });
-                gameState.score += 10;
-                gameState.scoreText.setText(`${gameState.score}`); 
-            })
+            // correctShowerButton.on('pointerup', () => {
+            //     gameState.showerIsAnswered = true;
+            //     correctShowerButton.setStyle({ fill: '#008000' });
+            //     gameState.score += 10;
+            //     gameState.scoreText.setText(`${gameState.score}`); 
+            // })
 
-            
-            const wrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
+                
+            const wrongShowerButton = new DialogButton(
+                150, 
+                480, 
+                "15-20 minutes", 
+                this, 
+                gameState, 
+                'showerIsAnswered', 
+                'wrong'
+            )
+            // const wrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
 
-            wrongShowerButton.setInteractive();
+            // wrongShowerButton.setInteractive();
 
-            wrongShowerButton.on('pointerover', () => {
-                if(!gameState.showerIsAnswered) {
-                    wrongShowerButton.setStyle({ fill: '#118ac6' }) 
-                }
-            }) 
+            // wrongShowerButton.on('pointerover', () => {
+            //     if(!gameState.showerIsAnswered) {
+            //         wrongShowerButton.setStyle({ fill: '#118ac6' }) 
+            //     }
+            // }) 
 
-            wrongShowerButton.on('pointerout', () => {
-                if(!gameState.showerIsAnswered) {
-                    wrongShowerButton.setStyle({ fill: '#000' }) 
-                }
-            })
+            // wrongShowerButton.on('pointerout', () => {
+            //     if(!gameState.showerIsAnswered) {
+            //         wrongShowerButton.setStyle({ fill: '#000' }) 
+            //     }
+            // })
 
-            wrongShowerButton.on('pointerup', () => {
-                gameState.showerIsAnswered = true;
-                wrongShowerButton.setStyle({ fill: '#f00' });
-            })
+            // wrongShowerButton.on('pointerup', () => {
+            //     gameState.showerIsAnswered = true;
+            //     wrongShowerButton.setStyle({ fill: '#f00' });
+            // })
 
         })
 
