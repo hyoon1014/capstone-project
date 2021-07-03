@@ -11,8 +11,14 @@ import Washer from './assets/washer.png';
 
 let gameState = {
     score: 0,
-    showerIsAnswered: false,
-    washerIsAnswered: false
+    shower: {
+        isAnswered: false,
+        isCorrect: false
+    },
+    washer: {
+        isAnswered: false,
+        isCorrrect: false
+    }
 };
 
 function renderDialog (scene, text) {
@@ -170,7 +176,7 @@ class FirstScene extends Phaser.Scene {
                 "Less than 5 minutes", 
                 this, 
                 gameState, 
-                'showerIsAnswered', 
+                'shower', 
                 'correct'
             )
  
@@ -180,7 +186,7 @@ class FirstScene extends Phaser.Scene {
                 "15-20 minutes", 
                 this, 
                 gameState, 
-                'showerIsAnswered', 
+                'shower', 
                 'wrong'
             )
         })
@@ -226,7 +232,7 @@ class FirstScene extends Phaser.Scene {
                 "Larger loads with warm water",
                 this,
                 gameState,
-                'washerIsAnswered',
+                'washer',
                 'wrong'
             )
 
@@ -236,7 +242,7 @@ class FirstScene extends Phaser.Scene {
                 "Smaller loads with cold water", 
                 this, 
                 gameState, 
-                'washerIsAnswered', 
+                'washer', 
                 'correct'
             )
         })
