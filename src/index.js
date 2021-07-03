@@ -2,6 +2,7 @@ import Phaser, { Core } from 'phaser';
 import Button from './tools/button'
 import DialogButton from './tools/dialogbutton'
 import CloseButton from './tools/closebutton'
+import Dialog from './tools/dialog'
 
 import Bathroom from './assets/bathroom.png';
 import Toilet from './assets/toilet.png';
@@ -11,6 +12,7 @@ import Washer from './assets/washer.png';
 
 let gameState = {
     score: 0,
+    isDialogOpen: false,
     shower: {
         isAnswered: false,
         isCorrect: false
@@ -207,7 +209,7 @@ class FirstScene extends Phaser.Scene {
         })
 
         washer.on('pointerdown', () => {
-            renderDialog(this, "How should you wash your laundry?")
+            new Dialog(gameState, this, "How should you wash your laundry?")
 
             const closeButton = new CloseButton(
                 650, 
