@@ -3,10 +3,6 @@ import Button from './tools/button'
 import DialogButton from './tools/dialogbutton'
 import CloseButton from './tools/closebutton'
 
-import FryingPan from './assets/fryingpan.jpeg';
-import KitchenSink from './assets/kitchensink.png';
-import Bear from './assets/spritebear.png';
-
 import Bathroom from './assets/bathroom.png';
 import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
@@ -18,26 +14,6 @@ let gameState = {
     showerIsAnswered: false,
     washerIsAnswered: false
 };
-
-var timerText;
-var timedEvent;
-
-function formatTime(seconds){
-
-    var minutes = Math.floor(seconds/60);
-
-    var partInSeconds = seconds%60;
-
-    partInSeconds = partInSeconds.toString().padStart(2,'0');
- 
-    return `${minutes}:${partInSeconds}`;
-}
-
-
-function onEvent (){
-this.initialTime -= 1; 
-timerText.setText(formatTime(this.initialTime));
-}
 
 function renderDialog (scene, text) {
     if (gameState.dialogBox) {
@@ -124,9 +100,6 @@ class FirstScene extends Phaser.Scene {
     }
     preload () 
     {
-        // this.load.image('fryingpan', FryingPan);
-        // this.load.image('kitchensink', KitchenSink);
-        // this.load.image('bear', Bear);
         this.load.image('bathroom', Bathroom);
         this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
@@ -173,15 +146,21 @@ class FirstScene extends Phaser.Scene {
         shower.on('pointerdown', () => {
             renderDialog(this, "How long should you take a shower?")
 
-            const closeButton = new CloseButton(650, 350, 'X', this, () => {})
+            const closeButton = new CloseButton(
+                650, 
+                350, 
+                'X', 
+                this, 
+                () => {}
+            )
 
             closeButton.button.setInteractive();
 
             closeButton.button.on('pointerdown', () => {
                 gameState.dialogBox.destroy();
                 gameState.dialogText.destroy();
-                correctShowerButton.destroy();
-                wrongShowerButton.destroy();
+                correctShowerButton.button.destroy();
+                wrongShowerButton.button.destroy();
                 closeButton.button.destroy();
             })
             
@@ -194,31 +173,7 @@ class FirstScene extends Phaser.Scene {
                 'showerIsAnswered', 
                 'correct'
             )
-
-            // const correctShowerButton = this.add.text(150, 450, "Less than 5 minutes", { fill: '#000' });
-
-            // correctShowerButton.setInteractive();
-
-            // correctShowerButton.on('pointerover', () => {
-            //     if(!gameState.showerIsAnswered) {
-            //         correctShowerButton.setStyle({ fill: '#118ac6' })
-            //     }
-            // })
-            
-            // correctShowerButton.on('pointerout', () => {
-            //     if(!gameState.showerIsAnswered) {
-            //         correctShowerButton.setStyle({ fill: '#000' })
-            //     }
-            // })
-
-            // correctShowerButton.on('pointerup', () => {
-            //     gameState.showerIsAnswered = true;
-            //     correctShowerButton.setStyle({ fill: '#008000' });
-            //     gameState.score += 10;
-            //     gameState.scoreText.setText(`${gameState.score}`); 
-            // })
-
-                
+ 
             const wrongShowerButton = new DialogButton(
                 150, 
                 480, 
@@ -228,27 +183,6 @@ class FirstScene extends Phaser.Scene {
                 'showerIsAnswered', 
                 'wrong'
             )
-            // const wrongShowerButton = this.add.text(150, 480, "15-20 minutes", { fill: '#000' });
-
-            // wrongShowerButton.setInteractive();
-
-            // wrongShowerButton.on('pointerover', () => {
-            //     if(!gameState.showerIsAnswered) {
-            //         wrongShowerButton.setStyle({ fill: '#118ac6' }) 
-            //     }
-            // }) 
-
-            // wrongShowerButton.on('pointerout', () => {
-            //     if(!gameState.showerIsAnswered) {
-            //         wrongShowerButton.setStyle({ fill: '#000' }) 
-            //     }
-            // })
-
-            // wrongShowerButton.on('pointerup', () => {
-            //     gameState.showerIsAnswered = true;
-            //     wrongShowerButton.setStyle({ fill: '#f00' });
-            // })
-
         })
 
 
@@ -269,15 +203,21 @@ class FirstScene extends Phaser.Scene {
         washer.on('pointerdown', () => {
             renderDialog(this, "How should you wash your laundry?")
 
-            const closeButton = new CloseButton(650, 350, 'X', this, () => {})
+            const closeButton = new CloseButton(
+                650, 
+                350, 
+                'X', 
+                this, 
+                () => {}
+            )
 
             closeButton.button.setInteractive();
 
             closeButton.button.on('pointerdown', () => {
                 gameState.dialogBox.destroy();
                 gameState.dialogText.destroy();
-                correctWasherButton.destroy();
-                wrongWasherButton.destroy();
+                correctWasherButton.button.destroy();
+                wrongWasherButton.button.destroy();
                 closeButton.button.destroy();
             })
             const wrongWasherButton = new DialogButton(
@@ -289,30 +229,6 @@ class FirstScene extends Phaser.Scene {
                 'washerIsAnswered',
                 'wrong'
             )
-            // const wrongWasherButton = this.add.text(150, 450, "Larger loads with warm water", { fill: '#000' });
-
-            // wrongWasherButton.setInteractive();
-
-            // wrongWasherButton.on('pointerover', () => {
-            //     if(!gameState.washerIsAnswered) {
-            //         wrongWasherButton.setStyle({ fill: '#118ac6' })
-            //     }
-            // })
-
-            // wrongWasherButton.on('pointerout', () => {
-            //     if(!gameState.washerIsAnswered){
-            //         wrongWasherButton.setStyle({ fill: '#000' })
-            //     }
-            // })
-
-            // wrongWasherButton.on('pointerdown', () => {
-            //     if(!gameState.washerIsAnswered){
-            //         gameState.washerIsAnswered = true;
-            //         wrongWasherButton.setStyle({ fill: '#f00' })
-            //         gameState.score -= 5;
-            //         gameState.scoreText.setText(`${ gameState.score }`);
-            //     }
-            // })
 
             const correctWasherButton = new DialogButton(
                 150, 
@@ -323,45 +239,35 @@ class FirstScene extends Phaser.Scene {
                 'washerIsAnswered', 
                 'correct'
             )
-
-            // const correctWasherButton = this.add.text(150, 480, "Smaller loads with cold water", { fill: '#000' });
-
-            // correctWasherButton.setInteractive();
-
-            // correctWasherButton.on('pointerover', () => {
-            //     if (!gameState.washerIsAnswered) {
-            //         correctWasherButton.setStyle({ fill: '#118ac6' })
-            //     }
-            // })
-
-            // correctWasherButton.on('pointerout', () => {
-            //     if (!gameState.washerIsAnswered) {
-            //         correctWasherButton.setStyle({ fill: '#000' })
-            //     }
-            // })
-            // correctWasherButton.on('pointerdown', () => {
-            //     if (!gameState.washerIsAnswered) {
-            //         gameState.washerIsAnswered = true;
-            //         correctWasherButton.setStyle({ fill: '#008000' });
-            //         gameState.score += 10;
-            //         gameState.scoreText.setText(`${ gameState.score }`);
-            //     }
-            //     if (gameState.washerIsAnswered) {
-                   
-            //     } 
-
-            //         gameState.dialogBox.destroy();
-            //         gameState.dialogText.destroy();
-            //         correctWasherButton.destroy();
-            //         WrongWasherButton.destroy();
-            // })
         })
         
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
 
+       var timerText;
+       var timedEvent;
+       
+       function formatTime(seconds) {
+           var minutes = Math.floor(seconds/60);
+           var partInSeconds = seconds%60;
+           
+           partInSeconds = partInSeconds.toString().padStart(2,'0'); 
+           return `${minutes}:${partInSeconds}`;
+        }
+
+        function onEvent () {
+            this.initialTime -= 1;
+            timerText.setText(formatTime(this.initialTime));
+        }
+
        this.initialTime = 120;
-       timerText = this.add.text(680, 200, formatTime(this.initialTime), { fontSize: '30px' });
+       timerText = this.add.text(
+           680, 
+           200, 
+           formatTime(this.initialTime), 
+           { fontSize: '30px' }
+        );
+
        timedEvent = this.time.addEvent({
            callback: onEvent,
            delay: 1000,
