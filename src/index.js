@@ -19,7 +19,7 @@ let gameState = {
     },
     washer: {
         isAnswered: false,
-        isCorrrect: false
+        isCorrect: false
     }
 };
 
@@ -209,46 +209,62 @@ class FirstScene extends Phaser.Scene {
         })
 
         washer.on('pointerdown', () => {
-            new Dialog(gameState, this, "How should you wash your laundry?")
+            
 
-            const closeButton = new CloseButton(
-                650, 
-                350, 
-                'X', 
-                this, 
-                () => {}
-            )
-
-            closeButton.button.setInteractive();
-
-            closeButton.button.on('pointerdown', () => {
-                gameState.dialogBox.destroy();
-                gameState.dialogText.destroy();
-                correctWasherButton.button.destroy();
-                wrongWasherButton.button.destroy();
-                closeButton.button.destroy();
-            })
-            const wrongWasherButton = new DialogButton(
-                150,
-                450,
-                "Larger loads with warm water",
-                this,
-                gameState,
-                'washer',
-                'wrong'
-            )
-
-            const correctWasherButton = new DialogButton(
-                150, 
-                480, 
-                "Smaller loads with cold water", 
-                this, 
+            // const closeButton = new CloseButton(
+            //     650, 
+            //     350, 
+            //     'X', 
+            //     this
+            // )
+            // closeButton.button.on('pointerdown', () => {
+            //     gameState.dialogBox.destroy();
+            //     gameState.dialogText.destroy();
+            //     correctWasherButton.button.destroy();
+            //     wrongWasherButton.button.destroy();
+            //     closeButton.button.destroy();
+            // })
+            const correctParams = {
+                x: 150,
+                y: 480,
+                question: "Smaller loads with cold water",
+                key: 'washer',
+                type: 'correct'
+            }
+            const wrongParams = {
+                x: 150,
+                y: 450,
+                question: "Larger loads with warm water",
+                key: 'washer',
+                type: 'wrong'
+            }
+            new Dialog(
                 gameState, 
-                'washer', 
-                'correct'
+                this, 
+                "How should you wash your laundry?", 
+                correctParams, 
+                wrongParams
             )
+            // const wrongWasherButton = new DialogButton(
+            //     150,
+            //     450,
+            //     "Larger loads with warm water",
+            //     this,
+            //     gameState,
+            //     'washer',
+            //     'wrong'
+            // )
+            // const correctWasherButton = new DialogButton(
+            //     150, 
+            //     480, 
+            //     "Smaller loads with cold water", 
+            //     this, 
+            //     gameState, 
+            //     'washer', 
+            //     'correct'
+            // )
+
         })
-        
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
 

@@ -55,6 +55,10 @@ class DialogButton {
       this.button.setStyle({ fill: '#000' })
     }
   }
+
+  destroy() {
+    this.button.destroy();
+  }
 }
 
 export default DialogButton
@@ -67,3 +71,4 @@ export default DialogButton
 //"Else if the answer is not correct and it was already answered and if it is the wrong type, then we show the text as red"
 //"Else then the text shows black"
 //Note that in order for these conditions to happen, the order of priority is top to bottom (order matters) and all of them must be true because of &&
+//Also note that in displayTextColor() no need to put .isAnswered because if in order for it to be correct, it has to be answered (so it's implied), but for the wrong answer it needs to be clarified
