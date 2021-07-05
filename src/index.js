@@ -152,45 +152,65 @@ class FirstScene extends Phaser.Scene {
         })
 
         shower.on('pointerdown', () => {
-            renderDialog(this, "How long should you take a shower?")
+            // renderDialog(this, "How long should you take a shower?")
 
-            const closeButton = new CloseButton(
-                650, 
-                350, 
-                'X', 
-                this, 
-                () => {}
-            )
+            // const closeButton = new CloseButton(
+            //     650, 
+            //     350, 
+            //     'X', 
+            //     this, 
+            //     () => {}
+            // )
 
-            closeButton.button.setInteractive();
+            // closeButton.button.setInteractive();
 
-            closeButton.button.on('pointerdown', () => {
-                gameState.dialogBox.destroy();
-                gameState.dialogText.destroy();
-                correctShowerButton.button.destroy();
-                wrongShowerButton.button.destroy();
-                closeButton.button.destroy();
-            })
-            
-            const correctShowerButton = new DialogButton(
-                150, 
-                450, 
-                "Less than 5 minutes", 
-                this, 
+            // closeButton.button.on('pointerdown', () => {
+            //     gameState.dialogBox.destroy();
+            //     gameState.dialogText.destroy();
+            //     correctShowerButton.button.destroy();
+            //     wrongShowerButton.button.destroy();
+            //     closeButton.button.destroy();
+            // })
+            const correctParams = {
+                x: 150,
+                y: 450,
+                question: "Less than 5 minutes",
+                key: 'shower',
+                type: 'correct'
+            }
+            const wrongParams = {
+                x: 150,
+                y: 480,
+                question: "15-20 minutes",
+                key: 'shower',
+                type: 'wrong'
+            }
+            new Dialog(
                 gameState, 
-                'shower', 
-                'correct'
+                this, 
+                "How long should you take a shower?", 
+                correctParams, 
+                wrongParams
             )
+            // const correctShowerButton = new DialogButton(
+            //     150, 
+            //     450, 
+            //     "Less than 5 minutes", 
+            //     this, 
+            //     gameState, 
+            //     'shower', 
+            //     'correct'
+            // )
  
-            const wrongShowerButton = new DialogButton(
-                150, 
-                480, 
-                "15-20 minutes", 
-                this, 
-                gameState, 
-                'shower', 
-                'wrong'
-            )
+            // const wrongShowerButton = new DialogButton(
+            //     150, 
+            //     480, 
+            //     "15-20 minutes", 
+            //     this, 
+            //     gameState, 
+            //     'shower', 
+            //     'wrong'
+            // )
         })
 
 
@@ -209,21 +229,6 @@ class FirstScene extends Phaser.Scene {
         })
 
         washer.on('pointerdown', () => {
-            
-
-            // const closeButton = new CloseButton(
-            //     650, 
-            //     350, 
-            //     'X', 
-            //     this
-            // )
-            // closeButton.button.on('pointerdown', () => {
-            //     gameState.dialogBox.destroy();
-            //     gameState.dialogText.destroy();
-            //     correctWasherButton.button.destroy();
-            //     wrongWasherButton.button.destroy();
-            //     closeButton.button.destroy();
-            // })
             const correctParams = {
                 x: 150,
                 y: 480,
@@ -245,25 +250,6 @@ class FirstScene extends Phaser.Scene {
                 correctParams, 
                 wrongParams
             )
-            // const wrongWasherButton = new DialogButton(
-            //     150,
-            //     450,
-            //     "Larger loads with warm water",
-            //     this,
-            //     gameState,
-            //     'washer',
-            //     'wrong'
-            // )
-            // const correctWasherButton = new DialogButton(
-            //     150, 
-            //     480, 
-            //     "Smaller loads with cold water", 
-            //     this, 
-            //     gameState, 
-            //     'washer', 
-            //     'correct'
-            // )
-
         })
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
