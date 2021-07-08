@@ -106,15 +106,13 @@ class FirstScene extends Phaser.Scene {
         super({key: 'FirstScene'});
         this.score = 0
     }
-    preload () 
-    {
+    preload () {
         this.load.image('bathroom', Bathroom);
         this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
         this.load.image('washer', Washer);
     }
-    create () 
-    {
+    create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
 
         bathroom.setScale(.5);
@@ -152,25 +150,6 @@ class FirstScene extends Phaser.Scene {
         })
 
         shower.on('pointerdown', () => {
-            // renderDialog(this, "How long should you take a shower?")
-
-            // const closeButton = new CloseButton(
-            //     650, 
-            //     350, 
-            //     'X', 
-            //     this, 
-            //     () => {}
-            // )
-
-            // closeButton.button.setInteractive();
-
-            // closeButton.button.on('pointerdown', () => {
-            //     gameState.dialogBox.destroy();
-            //     gameState.dialogText.destroy();
-            //     correctShowerButton.button.destroy();
-            //     wrongShowerButton.button.destroy();
-            //     closeButton.button.destroy();
-            // })
             const correctParams = {
                 x: 150,
                 y: 450,
@@ -192,28 +171,7 @@ class FirstScene extends Phaser.Scene {
                 correctParams, 
                 wrongParams
             )
-            // const correctShowerButton = new DialogButton(
-            //     150, 
-            //     450, 
-            //     "Less than 5 minutes", 
-            //     this, 
-            //     gameState, 
-            //     'shower', 
-            //     'correct'
-            // )
- 
-            // const wrongShowerButton = new DialogButton(
-            //     150, 
-            //     480, 
-            //     "15-20 minutes", 
-            //     this, 
-            //     gameState, 
-            //     'shower', 
-            //     'wrong'
-            // )
         })
-
-
 
 
         const washer = this.add.sprite(152, 472, 'washer');
@@ -268,9 +226,13 @@ class FirstScene extends Phaser.Scene {
         function onEvent () {
             this.initialTime -= 1;
             timerText.setText(formatTime(this.initialTime));
+
+            if (this.initialTime === 0) {
+                timedEvent.remove();
+            }
         }
 
-       this.initialTime = 120;
+       this.initialTime = 10;
        timerText = this.add.text(
            680, 
            200, 
@@ -284,10 +246,7 @@ class FirstScene extends Phaser.Scene {
            callbackScope: this,
            loop: true
        })
-
-        
     }
-
 
     update() {
     
@@ -296,18 +255,14 @@ class FirstScene extends Phaser.Scene {
 }
 
 class InstructionScreen extends Phaser.Scene {
-    constructor () 
-    {
-        super({key: 'InstructionScreen'});
-        
+    constructor () {
+        super({key: 'InstructionScreen'});    
     }
-    preload ()
-    {
+    preload () {
 
     }
       
-    create ()
-    {
+    create () {
 
         const instructions = [
             "Instructions here"
