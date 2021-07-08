@@ -108,7 +108,7 @@ class FirstScene extends Phaser.Scene {
     }
     preload () {
         this.load.image('bathroom', Bathroom);
-        this.load.image('toilet', Toilet);
+        // this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
         this.load.image('washer', Washer);
     }
@@ -211,6 +211,7 @@ class FirstScene extends Phaser.Scene {
         })
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
+       gameState.iceFloe = this.add.rectangle(700, 50, 150, 20, 0x6fc4fc);
 
        var timerText;
        var timedEvent;
@@ -223,16 +224,21 @@ class FirstScene extends Phaser.Scene {
            return `${minutes}:${partInSeconds}`;
         }
 
-        function onEvent () {
+        function countdownTime () {
             this.initialTime -= 1;
             timerText.setText(formatTime(this.initialTime));
 
-            if (this.initialTime === 0) {
+            if (this.initialTime <= 20 && this.initialTime > 10 && this.initialTime > 0) {
+                gameState.iceFloe.setScale(.5);
+            } else if (this.initialTime <= 10 && this.initialTime > 0) {
+                gameState.iceFloe.setScale(.25);
+            } else if (this.initialTime === 0) {
                 timedEvent.remove();
+                //put Game Over scene here and also make scene unclickable
             }
         }
 
-       this.initialTime = 10;
+       this.initialTime = 30;
        timerText = this.add.text(
            680, 
            200, 
@@ -241,7 +247,7 @@ class FirstScene extends Phaser.Scene {
         );
 
        timedEvent = this.time.addEvent({
-           callback: onEvent,
+           callback: countdownTime,
            delay: 1000,
            callbackScope: this,
            loop: true
@@ -276,10 +282,7 @@ class InstructionScreen extends Phaser.Scene {
         } )
 
         backButton.button.setStyle({ fontFamily: 'Verdana' })
-
     }
-
-
 }
 
 const config = {
