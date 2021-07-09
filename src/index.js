@@ -229,12 +229,13 @@ class FirstScene extends Phaser.Scene {
             timerText.setText(formatTime(this.initialTime));
 
             if (this.initialTime <= 20 && this.initialTime > 10 && this.initialTime > 0) {
+                //replace setScale with ice floe frames
                 gameState.iceFloe.setScale(.5);
             } else if (this.initialTime <= 10 && this.initialTime > 0) {
                 gameState.iceFloe.setScale(.25);
             } else if (this.initialTime === 0) {
                 timedEvent.remove();
-                //put Game Over scene here and also make scene unclickable
+                //put Game Over scene here and also make current scene unclickable
             }
         }
 
