@@ -12,6 +12,7 @@ import Washer from './assets/washer.png';
 
 let gameState = {
     score: 0,
+    iceSize: 1,
     isDialogOpen: false,
     shower: {
         isAnswered: false,
@@ -228,15 +229,15 @@ class FirstScene extends Phaser.Scene {
             this.initialTime -= 1;
             timerText.setText(formatTime(this.initialTime));
 
-            if (this.initialTime <= 20 && this.initialTime > 10 && this.initialTime > 0) {
-                //replace setScale with ice floe frames
-                gameState.iceFloe.setScale(.5);
-            } else if (this.initialTime <= 10 && this.initialTime > 0) {
-                gameState.iceFloe.setScale(.25);
-            } else if (this.initialTime === 0) {
-                timedEvent.remove();
-                //put Game Over scene here and also make current scene unclickable
-            }
+            // if (this.initialTime <= 20 && this.initialTime > 10 && this.initialTime > 0) {
+            //     //replace setScale with ice floe frames
+            //     gameState.iceFloe.setScale(.5);
+            // } else if (this.initialTime <= 10 && this.initialTime > 0) {
+            //     gameState.iceFloe.setScale(.25);
+            // } else if (this.initialTime === 0) {
+            //     timedEvent.remove();
+            //     //put Game Over scene here and also make current scene unclickable
+            // }
         }
 
        this.initialTime = 30;

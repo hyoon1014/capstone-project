@@ -11,6 +11,7 @@ class DialogButton {
         .on('pointerdown', () => {
           if (type === 'correct') {
             this.handleCorrectAnswer();
+            this.growIce();
           } else if (type === 'wrong') {
             this.handleWrongAnswer();
           }
@@ -59,6 +60,32 @@ class DialogButton {
   destroy() {
     this.button.destroy();
   }
+
+  growIce() {
+    if (this.gameState[this.key].isCorrect && this.type === 'correct' && 1 <= this.gameState.iceSize < 4) {
+      this.gameState.iceSize += .25;
+      this.gameState.iceFloe.setScale(this.gameState.iceSize);
+    }
+  }
+
+  // changeIceSize() {
+  //   let scaleChange = 1;
+  //   if (this.gameState[this.key].isCorrect && this.type === 'correct' && scaleChange < 4) {
+  //     scaleChange += .25;
+  //     this.gameState.iceFloe.setScale(scaleChange);
+  //   } else if (!this.gameState[this.key].isCorrect && this.gameState[this.key].isAnswered && this.type === 'wrong' && 1 <= scaleChange < 4) {
+  //     scaleChange -= .25;
+  //     this.gameState.iceFloe.setScale(scaleChange);
+  //   }
+  // }
+
+  // shrinkIce() {
+  //   let scaleChange = 1;
+  //   if (!this.gameState[this.key].isCorrect && this.gameState[this.key].isAnswered && this.type === 'wrong' && 1 <= scaleChange < 4) {
+  //     scaleChange -= .25;
+  //     this.gameState.iceFloe.setScale(scaleChange);
+  //   }
+  // }
 }
 
 export default DialogButton
