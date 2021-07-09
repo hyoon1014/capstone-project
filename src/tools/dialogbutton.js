@@ -11,7 +11,6 @@ class DialogButton {
         .on('pointerdown', () => {
           if (type === 'correct') {
             this.handleCorrectAnswer();
-            this.growIce();
           } else if (type === 'wrong') {
             this.handleWrongAnswer();
           }
@@ -29,21 +28,25 @@ class DialogButton {
     this.displayTextColor();
   }
   handleWrongAnswer() {
-    if (!this.gameState[this.key].isAnswered) {
+    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 2) {
       this.gameState[this.key].isAnswered = true;
       this.button.setStyle({ fill: '#f00' });
       this.gameState.score -= 5;
       this.gameState.scoreText.setText(`${ this.gameState.score }`);
+      this.gameState.iceSize -= .25;
+      this.gameState.iceFloe.setScale(this.gameState.iceSize);
     }
   }
 
   handleCorrectAnswer() {
-    if (!this.gameState[this.key].isAnswered) {
+    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 2) {
       this.gameState[this.key].isAnswered = true;
       this.gameState[this.key].isCorrect = true;
       this.button.setStyle({ fill: '#008000' });
       this.gameState.score += 10;
       this.gameState.scoreText.setText(`${ this.gameState.score }`);
+      this.gameState.iceSize += .25;
+      this.gameState.iceFloe.setScale(this.gameState.iceSize);
     }
   }
 
@@ -60,32 +63,6 @@ class DialogButton {
   destroy() {
     this.button.destroy();
   }
-
-  growIce() {
-    if (this.gameState[this.key].isCorrect && this.type === 'correct' && 1 <= this.gameState.iceSize < 4) {
-      this.gameState.iceSize += .25;
-      this.gameState.iceFloe.setScale(this.gameState.iceSize);
-    }
-  }
-
-  // changeIceSize() {
-  //   let scaleChange = 1;
-  //   if (this.gameState[this.key].isCorrect && this.type === 'correct' && scaleChange < 4) {
-  //     scaleChange += .25;
-  //     this.gameState.iceFloe.setScale(scaleChange);
-  //   } else if (!this.gameState[this.key].isCorrect && this.gameState[this.key].isAnswered && this.type === 'wrong' && 1 <= scaleChange < 4) {
-  //     scaleChange -= .25;
-  //     this.gameState.iceFloe.setScale(scaleChange);
-  //   }
-  // }
-
-  // shrinkIce() {
-  //   let scaleChange = 1;
-  //   if (!this.gameState[this.key].isCorrect && this.gameState[this.key].isAnswered && this.type === 'wrong' && 1 <= scaleChange < 4) {
-  //     scaleChange -= .25;
-  //     this.gameState.iceFloe.setScale(scaleChange);
-  //   }
-  // }
 }
 
 export default DialogButton
