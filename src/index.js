@@ -212,6 +212,7 @@ class FirstScene extends Phaser.Scene {
         })
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
+       //replace rectangle with image or sprite of ice floe
        gameState.iceFloe = this.add.rectangle(700, 50, 150, 20, 0x6fc4fc);
 
        var timerText;
@@ -229,15 +230,16 @@ class FirstScene extends Phaser.Scene {
             this.initialTime -= 1;
             timerText.setText(formatTime(this.initialTime));
 
-            // if (this.initialTime <= 20 && this.initialTime > 10 && this.initialTime > 0) {
-            //     //replace setScale with ice floe frames
-            //     gameState.iceFloe.setScale(.5);
-            // } else if (this.initialTime <= 10 && this.initialTime > 0) {
-            //     gameState.iceFloe.setScale(.25);
-            // } else if (this.initialTime === 0) {
-            //     timedEvent.remove();
-            //     //put Game Over scene here and also make current scene unclickable
-            // }
+            if (this.initialTime === 20 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (this.initialTime === 10 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (this.initialTime === 0) {
+                timedEvent.remove();
+                //put Game Over scene here and also make current scene unclickable
+            }
         }
 
        this.initialTime = 30;
