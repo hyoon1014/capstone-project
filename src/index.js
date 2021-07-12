@@ -11,12 +11,14 @@ import Washer from './assets/washer.png';
 import Ice from './assets/ice.png';
 import Bear from './assets/bear.png';
 import Sad from './assets/bearsad.png';
+import Happy from './assets/bearhappy.png'
 
 
 let gameState = {
     score: 0,
     iceSize: 1,
     isDialogOpen: false,
+    bear: true,
     shower: {
         isAnswered: false,
         isCorrect: false
@@ -26,7 +28,16 @@ let gameState = {
         isCorrect: false
     }
 };
-
+// function changeBear () {
+//     if (gameState.iceSize > 1 && gameState.bear) {
+//         console.log('Ice size works');
+//         // gameState.bear.destroy();
+//         this.add.image(920, 80, 'happybear');
+//     } else if (gameState.iceSize < 1 && gameState.bear) {
+//         // gameState.bear.destroy();
+//         this.add.image(920, 80, 'sadbear');
+//     }
+// }
 function renderDialog (scene, text) {
     if (gameState.dialogBox) {
         gameState.dialogBox.destroy();
@@ -47,22 +58,21 @@ class StartScreen extends Phaser.Scene {
     constructor () {
         super({key: 'StartScreen'});
     }
-
     preload () {
         this.load.image('ice', Ice);
         this.load.image('neutralbear', Bear);
     }
-      
     create () {
-        const playButton = new Button(350, 400, 'Play', this, () => {
+        this.add.image(470, 300, 'ice');
+        this.add.image(465, 255, 'neutralbear');
+        const playButton = new Button(350, 375, 'Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('FirstScene')
         } )
-        const instructionsButton = new Button(500, 400, 'How to Play', this, () => {
+        const instructionsButton = new Button(500, 375, 'How to Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('InstructionScreen')
         } )
-
     }
 }
 
@@ -79,6 +89,7 @@ class FirstScene extends Phaser.Scene {
         this.load.image('ice', Ice);
         this.load.image('neutralbear', Bear);
         this.load.image('sadbear', Sad);
+        this.load.image('happybear', Happy);
     }
     create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
@@ -183,7 +194,7 @@ class FirstScene extends Phaser.Scene {
 
        gameState.iceFloe = this.add.image(928, 120, 'ice');
 
-       const bear = this.add.image(920, 80, 'neutralbear');
+       gameState.bear = this.add.image(920, 80, 'neutralbear');
 
        var timerText;
        var timedEvent;
@@ -203,14 +214,13 @@ class FirstScene extends Phaser.Scene {
             if (this.initialTime === 20 && gameState.iceSize < 2) {
                 gameState.iceSize -= .25;
                 gameState.iceFloe.setScale(gameState.iceSize);
-                // this.add.image(920, 80, 'sadbear');
             } else if (this.initialTime === 10 && gameState.iceSize < 2) {
                 gameState.iceSize -= .25;
                 gameState.iceFloe.setScale(gameState.iceSize);
             } else if (gameState.iceSize === 0 || this.initialTime === 0) {
                 timedEvent.remove();
                 //put Game Over scene here and also make current scene unclickable
-            }
+            } 
         }
 
        this.initialTime = 30;
