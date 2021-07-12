@@ -188,7 +188,7 @@ class FirstScene extends Phaser.Scene {
                 wrongParams
             )
         })
-       gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
+       gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#ffffff' });
 
        const arcticBackground = this.add.rectangle(922, 100, 200, 200, 0x74c1de);
 
@@ -225,8 +225,8 @@ class FirstScene extends Phaser.Scene {
 
        this.initialTime = 30;
        timerText = this.add.text(
-           680, 
-           200, 
+           880, 
+           300, 
            formatTime(this.initialTime), 
            { fontSize: '30px' }
         );
