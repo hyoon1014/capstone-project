@@ -190,6 +190,11 @@ class FirstScene extends Phaser.Scene {
         })
        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#ffffff' });
 
+       const menuButton = new Button(885, 375, 'Menu', this, () => {
+        this.scene.stop('FirstScene')
+        this.scene.start('StartScreen')
+    } )
+
        const arcticBackground = this.add.rectangle(922, 100, 200, 200, 0x74c1de);
 
        gameState.iceFloe = this.add.image(928, 120, 'ice');

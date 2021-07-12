@@ -6,8 +6,14 @@ class Button {
           .setStyle({ backgroundColor: '#111' })
           .setInteractive({ useHandCursor: true })
           .on('pointerdown', () => callback())
-          .on('pointerover', () => this.button.setStyle({ fill: '#f39c12' }))
-          .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }));
+          .on('pointerover', () => {
+            this.button.setStyle({ fill: '#f39c12' })
+            this.button.setScale(1.25);
+          })
+          .on('pointerout', () => {
+            this.button.setStyle({ fill: '#FFF' })
+            this.button.setScale(1);
+          });
   }
 }
 
