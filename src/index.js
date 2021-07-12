@@ -196,6 +196,9 @@ class FirstScene extends Phaser.Scene {
     } )
 
        const arcticBackground = this.add.rectangle(922, 100, 200, 200, 0x74c1de);
+       arcticBackground.strokeColor = 0x000000;
+       arcticBackground.strokeWeight = 3;
+       arcticBackground.isStroked = true;
 
        gameState.iceFloe = this.add.image(928, 120, 'ice');
 
@@ -280,6 +283,7 @@ const config = {
     parent: 'phaser-example',
     width: 1022,
     height: 632,
+    backgroundColor: '#4fadd0',
     scene: [StartScreen, InstructionScreen, FirstScene]
 };
 
