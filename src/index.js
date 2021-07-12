@@ -8,7 +8,7 @@ import Bathroom from './assets/bathroom.png';
 import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
-
+import Ice from './assets/icefloe.png';
 
 let gameState = {
     score: 0,
@@ -112,6 +112,7 @@ class FirstScene extends Phaser.Scene {
         // this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
         this.load.image('washer', Washer);
+        this.load.image('ice', Ice)
     }
     create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
@@ -212,8 +213,11 @@ class FirstScene extends Phaser.Scene {
         })
 
        gameState.scoreText = this.add.text(700, 150, this.score, { fontSize: '25px', fill: '#ff00ae' });
-       //replace rectangle with image or sprite of ice floe
-       gameState.iceFloe = this.add.rectangle(700, 50, 150, 20, 0x6fc4fc);
+       
+       const arcticBackground = this.add.rectangle(922, 100, 200, 200, 0x74c1de);
+       gameState.iceFloe = this.add.image(922, 100, 'ice');
+       gameState.iceFloe.setScale(2);
+    // gameState.iceFloe = this.add.rectangle(700, 50, 150, 20, 0x6fc4fc);
 
        var timerText;
        var timedEvent;
@@ -292,7 +296,7 @@ class InstructionScreen extends Phaser.Scene {
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 822,
+    width: 1022,
     height: 632,
     scene: [StartScreen, InstructionScreen, FirstScene]
 };
