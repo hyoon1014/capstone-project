@@ -28,7 +28,7 @@ class DialogButton {
     this.displayTextColor();
   }
   handleWrongAnswer() {
-    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 2) {
+    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 4) {
       this.gameState[this.key].isAnswered = true;
       this.button.setStyle({ fill: '#f00' });
       this.gameState.score -= 5;
@@ -39,7 +39,7 @@ class DialogButton {
   }
 
   handleCorrectAnswer() {
-    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 2) {
+    if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 4) {
       this.gameState[this.key].isAnswered = true;
       this.gameState[this.key].isCorrect = true;
       this.button.setStyle({ fill: '#008000' });

@@ -9,10 +9,11 @@ import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
 import Ice from './assets/icefloe.png';
+import NeutralBear from './assets/neutralbear.png';
 
 let gameState = {
     score: 0,
-    iceSize: 1,
+    iceSize: 2,
     isDialogOpen: false,
     shower: {
         isAnswered: false,
@@ -112,7 +113,8 @@ class FirstScene extends Phaser.Scene {
         // this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
         this.load.image('washer', Washer);
-        this.load.image('ice', Ice)
+        this.load.image('ice', Ice);
+        this.load.image('neutralbear', NeutralBear);
     }
     create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
@@ -234,10 +236,10 @@ class FirstScene extends Phaser.Scene {
             this.initialTime -= 1;
             timerText.setText(formatTime(this.initialTime));
 
-            if (this.initialTime === 20 && gameState.iceSize < 2) {
+            if (this.initialTime === 20 && gameState.iceSize < 4) {
                 gameState.iceSize -= .25;
                 gameState.iceFloe.setScale(gameState.iceSize);
-            } else if (this.initialTime === 10 && gameState.iceSize < 2) {
+            } else if (this.initialTime === 10 && gameState.iceSize < 4) {
                 gameState.iceSize -= .25;
                 gameState.iceFloe.setScale(gameState.iceSize);
             } else if (this.initialTime === 0) {
