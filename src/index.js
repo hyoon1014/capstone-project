@@ -55,50 +55,14 @@ class StartScreen extends Phaser.Scene
       
     create ()
     {
-        const playButton = this.add.rectangle(200, 260, 150, 50, 0x6fc4fc);
-        
-        playButton.setInteractive();
-
-        playButton.on('pointerup', () => {
-            this.scene.stop ('StartScreen')
-            this.scene.start ('FirstScene')
-
-        })
-        
-        const playButtonText = this.add.text(175, 250, "Play", {fill: '#83a1a7'});
-        
-        playButtonText.setInteractive();
-
-        playButtonText.on('pointerover', () => playButtonText.setStyle({fill: '#fef01a'}) )
-            .on('pointerout', () => playButtonText.setStyle({ fill: '#83a1a7'}))
-
-        playButtonText.on('pointerup', () => {
-            this.scene.stop ('StartScreen')
-            this.scene.start ('FirstScene')
-        })
-
-
-        const instructionsButton = this.add.rectangle(400, 260, 150, 50, 0x6fc4fc);
-            instructionsButton.setInteractive();
-
-            instructionsButton.on('pointerup', () => {
-                this.scene.stop ('StartScreen')
-                this.scene.start ('InstructionScreen')
-            })
-
-
-
-        const instructionsButtonText = this.add.text(350, 250, "How to Play", {fill: '#83a1a7'});
-            instructionsButtonText.setInteractive();
-
-            instructionsButtonText.on('pointerover', () => instructionsButtonText.setStyle({ fill: '#fef01a'}) )
-                .on('pointerout', () => instructionsButtonText.setStyle({ fill: '#83a1a7'}))
-            
-            instructionsButtonText.on('pointerup', () => {
-                this.scene.stop ('StartScreen')
-                this.scene.start ('InstructionScreen')
-            })
-
+        const playButton = new Button(350, 400, 'Play', this, () => {
+            this.scene.stop('StartScreen')
+            this.scene.start('FirstScene')
+        } )
+        const instructionsButton = new Button(500, 400, 'How to Play', this, () => {
+            this.scene.stop('StartScreen')
+            this.scene.start('InstructionScreen')
+        } )
     }
 }
 
