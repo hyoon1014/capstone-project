@@ -11,7 +11,8 @@ import Washer from './assets/washer.png';
 import Ice from './assets/ice.png';
 import Bear from './assets/bear.png';
 import Sad from './assets/bearsad.png';
-import Happy from './assets/bearhappy.png'
+import Happy from './assets/bearhappy.png';
+import Arctic from './assets/arcticbackgroundborder.png';
 
 
 let gameState = {
@@ -90,6 +91,7 @@ class FirstScene extends Phaser.Scene {
         this.load.image('neutralbear', Bear);
         this.load.image('sadbear', Sad);
         this.load.image('happybear', Happy);
+        this.load.image('arctic', Arctic)
     }
     create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
@@ -188,26 +190,23 @@ class FirstScene extends Phaser.Scene {
                 wrongParams
             )
         })
-       gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#ffffff' });
-
-       const menuButton = new Button(885, 375, 'Menu', this, () => {
-        this.scene.stop('FirstScene')
-        this.scene.start('StartScreen')
-    } )
-
-       const arcticBackground = this.add.rectangle(922, 100, 200, 200, 0x74c1de);
-       arcticBackground.strokeColor = 0x000000;
-       arcticBackground.strokeWeight = 3;
-       arcticBackground.isStroked = true;
-
-       gameState.iceFloe = this.add.image(928, 120, 'ice');
-
-       gameState.bear = this.add.image(920, 80, 'neutralbear');
-
-       var timerText;
-       var timedEvent;
-       
-       function formatTime(seconds) {
+        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#ffffff' });
+        
+        const menuButton = new Button(885, 375, 'Menu', this, () => {
+            this.scene.stop('FirstScene')
+            this.scene.start('StartScreen')
+        } )
+        
+        const arcticBackground = this.add.image(915, 100, 'arctic')
+        
+        gameState.iceFloe = this.add.image(928, 125, 'ice');
+        
+        gameState.bear = this.add.image(920, 85, 'neutralbear');
+        
+        var timerText;
+        var timedEvent;
+        
+        function formatTime(seconds) {
            var minutes = Math.floor(seconds/60);
            var partInSeconds = seconds%60;
            
@@ -281,8 +280,8 @@ class InstructionScreen extends Phaser.Scene {
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 1022,
-    height: 632,
+    width: 1015,
+    height: 624,
     backgroundColor: '#4fadd0',
     scene: [StartScreen, InstructionScreen, FirstScene]
 };
