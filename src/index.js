@@ -118,7 +118,7 @@ class FirstScene extends Phaser.Scene {
         // })
 
 
-        const shower = this.add.sprite(484, 128, 'shower');
+        const shower = this.add.sprite(480, 125, 'shower');
 
         shower.setInteractive();
 
@@ -155,7 +155,7 @@ class FirstScene extends Phaser.Scene {
         })
 
 
-        const washer = this.add.sprite(152, 472, 'washer');
+        const washer = this.add.sprite(148, 469, 'washer');
 
         washer.setInteractive();
 
