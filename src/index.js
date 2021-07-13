@@ -190,9 +190,9 @@ class FirstScene extends Phaser.Scene {
                 wrongParams
             )
         })
-        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#ffffff' });
+        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
         
-        const menuButton = new Button(885, 375, 'Menu', this, () => {
+        const menuButton = new Button(920, 375, 'Menu', this, () => {
             this.scene.stop('FirstScene')
             this.scene.start('StartScreen')
         } )
@@ -224,7 +224,7 @@ class FirstScene extends Phaser.Scene {
             } else if (this.initialTime === 10 && gameState.iceSize < 2) {
                 gameState.iceSize -= .25;
                 gameState.iceFloe.setScale(gameState.iceSize);
-            } else if (gameState.iceSize === 0 || this.initialTime === 0) {
+            } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
                 timedEvent.remove();
                 //put Game Over scene here and also make current scene unclickable
             } 
@@ -235,7 +235,7 @@ class FirstScene extends Phaser.Scene {
            880, 
            300, 
            formatTime(this.initialTime), 
-           { fontSize: '30px' }
+           { fontSize: '30px', fill: '#000000' }
         );
 
        timedEvent = this.time.addEvent({
@@ -282,7 +282,7 @@ const config = {
     parent: 'phaser-example',
     width: 1015,
     height: 624,
-    backgroundColor: '#4fadd0',
+    backgroundColor: '#74c1de',
     scene: [StartScreen, InstructionScreen, FirstScene]
 };
 
