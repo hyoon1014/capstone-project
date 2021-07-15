@@ -14,6 +14,8 @@ import Sad from './assets/bearsad.png';
 import Happy from './assets/bearhappy.png';
 import Arctic from './assets/arcticbackgroundborder.png';
 import Kitchen from './assets/kitchen.png';
+import Navigation from './assets/navscreen.png';
+import Bathselect from './assets/bathroomselect.png';
 
 
 let gameState = {
@@ -63,12 +65,57 @@ class StartScreen extends Phaser.Scene {
         this.add.image(465, 255, 'neutralbear');
         const playButton = new Button(350, 375, 'Play', this, () => {
             this.scene.stop('StartScreen')
-            this.scene.start('BathroomScene')
+            this.scene.start('NavScreen')
         } )
         const instructionsButton = new Button(500, 375, 'How to Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('InstructionScreen')
         } )
+    }
+}
+
+class NavScreen extends Phaser.Scene {
+    constructor () {
+        super({key: 'NavScreen'});
+        this.score = 0;
+    }
+
+    preload () {
+        this.load.image('navigation', Navigation);
+        this.load.image('bathselect', Bathselect);
+    }
+
+    create () {
+        // const navigationArea = this.add.image(0, 0, 'navigation');
+
+        // navigationArea.setScale(.5);
+
+        // navigationArea.setOrigin(0,0);
+
+        const navBackground = this.add.rectangle(0, 0, 1632, 1248, 0x3a3a50)
+
+        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
+
+        const bathSelect = this.add.image(75, 18, 'bathselect');
+
+        bathSelect.setScale(.25);
+
+        bathSelect.setOrigin(0,0);
+
+        bathSelect.setInteractive();
+
+        bathSelect.on('pointerover', () => {
+            bathSelect.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        bathSelect.on('pointerout', () => {
+            bathSelect.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        bathSelect.on('pointerdown', () => {
+            this.scene.stop('NavScreen')
+            this.scene.start('BathroomScene')
+        })
     }
 }
 
@@ -260,6 +307,20 @@ class BathroomScene extends Phaser.Scene {
 
 }
 
+class KitchenScene extends Phaser.Scene {
+    constructor () {
+        super({key: 'KitchenScene'});
+    }
+
+    preload () {
+        this.load.image('kitchen', Kitchen);
+    }
+
+    create () {
+
+    }
+}
+
 class InstructionScreen extends Phaser.Scene {
     constructor () {
         super({key: 'InstructionScreen'});    
@@ -291,7 +352,7 @@ const config = {
     width: 1015,
     height: 624,
     backgroundColor: '#74c1de',
-    scene: [StartScreen, InstructionScreen, BathroomScene]
+    scene: [StartScreen, InstructionScreen, NavScreen, BathroomScene, KitchenScene]
 };
 
 const game = new Phaser.Game(config);
