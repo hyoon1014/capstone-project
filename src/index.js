@@ -63,11 +63,11 @@ class StartScreen extends Phaser.Scene {
     create () {
         this.add.image(470, 300, 'ice');
         this.add.image(465, 255, 'neutralbear');
-        const playButton = new Button(350, 375, 'Play', this, () => {
+        const playButton = new Button(380, 375, 'Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('NavScreen')
         } )
-        const instructionsButton = new Button(500, 375, 'How to Play', this, () => {
+        const instructionsButton = new Button(575, 375, 'How to Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('InstructionScreen')
         } )
@@ -270,12 +270,20 @@ class BathroomScene extends Phaser.Scene {
                 key: 'shower',
                 type: 'wrong'
             }
+            const correctExplainParams = {
+                x: 150,
+                y: 500,
+                question: "Yes! Not only are you using less water",
+                key: 'shower',
+                type: 'correct'
+            }
             new Dialog(
                 gameState, 
                 this, 
                 "How long should you take a shower?", 
                 correctParams, 
-                wrongParams
+                wrongParams,
+                correctExplainParams
             )
         })
 
@@ -333,6 +341,10 @@ class BathroomScene extends Phaser.Scene {
         gameState.iceFloe = this.add.image(928, 125, 'ice');
         
         gameState.bear = this.add.image(920, 85, 'neutralbear');
+
+        this.gameOverText = this.add.text(300, 300, 'Game Over', {fontSize: '30px', fill: '#000'})
+        this.gameOverText.setOrigin(0,0);
+        this.gameOverText.visible = false;
         
         var timerText;
         var timedEvent;
@@ -357,7 +369,8 @@ class BathroomScene extends Phaser.Scene {
                 gameState.iceFloe.setScale(gameState.iceSize);
             } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
                 timedEvent.remove();
-                //put Game Over scene here and also make current scene unclickable
+                this.gameOverText.visible = true;
+                this.add.image(920, 85, 'sadbear');
             } 
         }
 

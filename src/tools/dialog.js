@@ -60,6 +60,7 @@ class Dialog {
     this.correctButton.destroy();
     this.wrongButton.destroy();
     this.closeButton.destroy();
+    
   }
 }
 
