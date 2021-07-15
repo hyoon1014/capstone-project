@@ -14,8 +14,8 @@ import Sad from './assets/bearsad.png';
 import Happy from './assets/bearhappy.png';
 import Arctic from './assets/arcticbackgroundborder.png';
 import Kitchen from './assets/kitchen.png';
-import Navigation from './assets/navscreen.png';
 import Bathselect from './assets/bathroomselect.png';
+import Kitchenselect from './assets/kitchenselect.png';
 
 
 let gameState = {
@@ -81,22 +81,65 @@ class NavScreen extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('navigation', Navigation);
         this.load.image('bathselect', Bathselect);
+        this.load.image('kitchenselect', Kitchenselect);
+        this.load.image('arctic', Arctic)
     }
 
     create () {
-        // const navigationArea = this.add.image(0, 0, 'navigation');
+        const arcticBackground = this.add.image(915, 100, 'arctic')
+        
+        gameState.iceFloe = this.add.image(928, 125, 'ice');
+        
+        gameState.bear = this.add.image(920, 85, 'neutralbear');
+        
+        var timerText;
+        var timedEvent;
+        
+        function formatTime(seconds) {
+           var minutes = Math.floor(seconds/60);
+           var partInSeconds = seconds%60;
+           
+           partInSeconds = partInSeconds.toString().padStart(2,'0'); 
+           return `${minutes}:${partInSeconds}`;
+        }
 
-        // navigationArea.setScale(.5);
+        function countdownTime () {
+            this.initialTime -= 1;
+            timerText.setText(formatTime(this.initialTime));
 
-        // navigationArea.setOrigin(0,0);
+            if (this.initialTime === 20 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (this.initialTime === 10 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
+                timedEvent.remove();
+                //put Game Over scene here and also make current scene unclickable
+            } 
+        }
+
+       this.initialTime = 30;
+       timerText = this.add.text(
+           880, 
+           300, 
+           formatTime(this.initialTime), 
+           { fontSize: '30px', fill: '#000000' }
+        );
+
+       timedEvent = this.time.addEvent({
+           callback: countdownTime,
+           delay: 1000,
+           callbackScope: this,
+           loop: true
+       })
 
         const navBackground = this.add.rectangle(0, 0, 1632, 1248, 0x3a3a50)
 
         gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
 
-        const bathSelect = this.add.image(75, 18, 'bathselect');
+        const bathSelect = this.add.image(75, 10, 'bathselect');
 
         bathSelect.setScale(.25);
 
@@ -106,15 +149,42 @@ class NavScreen extends Phaser.Scene {
 
         bathSelect.on('pointerover', () => {
             bathSelect.setBlendMode(Phaser.BlendModes.SCREEN);
+            this.bathroomText = this.add.text(200, 140, 'Bathroom', { fontSize: '32px', fill: '#000' });
+            this.bathroomText.visible = true;
         })
 
         bathSelect.on('pointerout', () => {
             bathSelect.setBlendMode(Phaser.BlendModes.NORMAL);
+            this.bathroomText.visible = false;
         })
 
         bathSelect.on('pointerdown', () => {
             this.scene.stop('NavScreen')
             this.scene.start('BathroomScene')
+        })
+
+        const kitchenSelect = this.add.image(171, 322, 'kitchenselect');
+
+        kitchenSelect.setScale(.25);
+
+        kitchenSelect.setOrigin(0,0);
+
+        kitchenSelect.setInteractive();
+
+        kitchenSelect.on('pointerover', () => {
+            kitchenSelect.setBlendMode(Phaser.BlendModes.SCREEN);
+            this.kitchenText = this.add.text(320, 450, 'Kitchen', { fontSize: '32px', fill: '#000' });
+            this.kitchenText.visible = true;
+        })
+
+        kitchenSelect.on('pointerout', () => {
+            kitchenSelect.setBlendMode(Phaser.BlendModes.NORMAL);
+            this.kitchenText.visible = false;
+        })
+
+        kitchenSelect.on('pointerdown', () => {
+            this.scene.stop('NavScreen')
+            this.scene.start('KitchenScene')
         })
     }
 }
@@ -247,11 +317,16 @@ class BathroomScene extends Phaser.Scene {
         })
         gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
 
-        const menuButton = new Button(920, 375, 'Menu', this, () => {
-            this.scene.restart('BathroomScene');
-            this.scene.stop('BathroomScene');
-            this.scene.start('StartScreen');            
+        const backFromBath = new Button(920, 375, 'Back', this, () => {
+            this.scene.pause('BathroomScene')
+            this.scene.start('NavScreen')
         } )
+
+        // const menuButton = new Button(920, 375, 'Menu', this, () => {
+        //     this.scene.restart('BathroomScene');
+        //     this.scene.stop('BathroomScene');
+        //     this.scene.start('StartScreen');            
+        // } )
         
         const arcticBackground = this.add.image(915, 100, 'arctic')
         
@@ -317,6 +392,11 @@ class KitchenScene extends Phaser.Scene {
     }
 
     create () {
+        const kitchen = this.add.image(0, 0, 'kitchen');
+
+        kitchen.setScale(.5);
+
+        kitchen.setOrigin(0,0);
 
     }
 }
@@ -331,13 +411,26 @@ class InstructionScreen extends Phaser.Scene {
       
     create () {
 
-        const instructions = [
-            "Instructions here"
-        ];
+        // const instructions = [
+        //     "A polar bear in the arctic needs your help! Save your fluffy friend by using your mouse to click on objects around your home and correctly answer the quiz questions to keep your bear afloat before time runs out. Be careful: not all of the objects have quiz questions, so you'll have to look fast! "
+        // ];
 
-        const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Verdana', color: '#fef01a'});
+        // const instructionsText = this.add.text(300, 150, instructions, {fontFamily: 'Verdana', color: '#fff'});
 
-        const backButton = new Button(400, 500, 'Back', this, () => {
+        this.make.text({
+            x: 250,
+            y: 175,
+            text: 'A polar bear in the arctic needs your help! Save your fluffy friend by using your mouse to click on objects around your home and correctly answer the quiz questions to keep your bear afloat before time runs out. Be careful: not all of the objects have quiz questions, so you have to look fast!',
+            origin: { x: 0, y: 0 },
+            style: {
+                font: 'bold 20px Arial',
+                fill: 'white',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        });
+
+        const backButton = new Button(450, 500, 'Back', this, () => {
             this.scene.stop('InstructionScreen')
             this.scene.start('StartScreen')
         } )
