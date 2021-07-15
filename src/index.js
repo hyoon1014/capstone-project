@@ -13,13 +13,13 @@ import Bear from './assets/bear.png';
 import Sad from './assets/bearsad.png';
 import Happy from './assets/bearhappy.png';
 import Arctic from './assets/arcticbackgroundborder.png';
+import Kitchen from './assets/kitchen.png';
 
 
 let gameState = {
     score: 0,
     iceSize: 1,
     isDialogOpen: false,
-    bear: true,
     shower: {
         isAnswered: false,
         isCorrect: false
@@ -27,18 +27,13 @@ let gameState = {
     washer: {
         isAnswered: false,
         isCorrect: false
+    },
+    toilet: {
+        isAnswered: true,
+        isCorrect: false
     }
 };
-// function changeBear () {
-//     if (gameState.iceSize > 1 && gameState.bear) {
-//         console.log('Ice size works');
-//         // gameState.bear.destroy();
-//         this.add.image(920, 80, 'happybear');
-//     } else if (gameState.iceSize < 1 && gameState.bear) {
-//         // gameState.bear.destroy();
-//         this.add.image(920, 80, 'sadbear');
-//     }
-// }
+
 function renderDialog (scene, text) {
     if (gameState.dialogBox) {
         gameState.dialogBox.destroy();
@@ -68,7 +63,7 @@ class StartScreen extends Phaser.Scene {
         this.add.image(465, 255, 'neutralbear');
         const playButton = new Button(350, 375, 'Play', this, () => {
             this.scene.stop('StartScreen')
-            this.scene.start('FirstScene')
+            this.scene.start('BathroomScene')
         } )
         const instructionsButton = new Button(500, 375, 'How to Play', this, () => {
             this.scene.stop('StartScreen')
@@ -77,14 +72,14 @@ class StartScreen extends Phaser.Scene {
     }
 }
 
-class FirstScene extends Phaser.Scene {
+class BathroomScene extends Phaser.Scene {
     constructor () {
-        super({key: 'FirstScene'});
+        super({key: 'BathroomScene'});
         this.score = 0
     }
     preload () {
         this.load.image('bathroom', Bathroom);
-        // this.load.image('toilet', Toilet);
+        this.load.image('toilet', Toilet);
         this.load.image('shower', Shower);
         this.load.image('washer', Washer);
         this.load.image('ice', Ice);
@@ -101,22 +96,35 @@ class FirstScene extends Phaser.Scene {
         bathroom.setOrigin(0,0);
 
 
-        // const toilet = this.add.sprite(75, 130, 'toilet');
+        const toilet = this.add.sprite(70, 130, 'toilet');
 
-        // toilet.setInteractive();
+        toilet.setInteractive();
 
-        // toilet.on('pointerover', () => {
-        //     toilet.setBlendMode(Phaser.BlendModes.SCREEN);
-        // })
+        toilet.on('pointerover', () => {
+            toilet.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
 
-        // toilet.on('pointerdown', () => {
-        //     renderDialog(this, "Would you like to flush the toilet?")
-        // })
-
-        // toilet.on('pointerout', () => {
-        //     toilet.setBlendMode(Phaser.BlendModes.NORMAL);
-        // })
-
+        toilet.on('pointerout', () => {
+            toilet.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+        
+        toilet.on('pointerdown', () => {
+            const correctParams = {
+                key: 'toilet',
+                type: 'none'
+            }
+            const wrongParams = {
+                key: 'toilet',
+                type: 'none'
+            }
+            new Dialog(
+                gameState, 
+                this, 
+                "A perfectly clean toilet that you used earlier today.",
+                correctParams,
+                wrongParams
+            )
+        })
 
         const shower = this.add.sprite(480, 125, 'shower');
 
@@ -191,10 +199,11 @@ class FirstScene extends Phaser.Scene {
             )
         })
         gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
-        
+
         const menuButton = new Button(920, 375, 'Menu', this, () => {
-            this.scene.stop('FirstScene')
-            this.scene.start('StartScreen')
+            this.scene.restart('BathroomScene');
+            this.scene.stop('BathroomScene');
+            this.scene.start('StartScreen');            
         } )
         
         const arcticBackground = this.add.image(915, 100, 'arctic')
@@ -247,7 +256,6 @@ class FirstScene extends Phaser.Scene {
     }
 
     update() {
-    
     }
 
 }
@@ -283,7 +291,7 @@ const config = {
     width: 1015,
     height: 624,
     backgroundColor: '#74c1de',
-    scene: [StartScreen, InstructionScreen, FirstScene]
+    scene: [StartScreen, InstructionScreen, BathroomScene]
 };
 
 const game = new Phaser.Game(config);

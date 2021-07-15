@@ -13,6 +13,8 @@ class DialogButton {
             this.handleCorrectAnswer();
           } else if (type === 'wrong') {
             this.handleWrongAnswer();
+          } else {
+            this.handleNeutralAnswer();
           }
         })
         .on('pointerover', () => {
@@ -26,6 +28,7 @@ class DialogButton {
           }
         })
     this.displayTextColor();
+    // this.changeBear();
   }
   handleWrongAnswer() {
     if (!this.gameState[this.key].isAnswered && this.gameState.iceSize < 2) {
@@ -50,6 +53,12 @@ class DialogButton {
     }
   }
 
+  handleNeutralAnswer() {
+    if (this.gameState[this.key].isAnswered && this.type !== 'correct' && this.type !== 'wrong') {
+      this.button.setStyle({ fill: '#000' });
+    }
+  }
+
   displayTextColor() {
     if (this.gameState[this.key].isCorrect && this.type === 'correct') {
       this.button.setStyle({ fill: '#008000' });
@@ -63,6 +72,20 @@ class DialogButton {
   destroy() {
     this.button.destroy();
   }
+
+  // changeBear() {
+  //   if (this.gameState.iceSize > 1 && this.gameState.bear) {
+  //       console.log('Ice size works');
+  //       this.gameState.bear.destroy();
+  //       this.gameState.bear = this.scene.add.image(920, 80, 'happybear');
+  //   } else if (this.gameState.iceSize < 1 && this.gameState.bear) {
+  //       this.gameState.bear.destroy();
+  //       // this.add.image(920, 80, 'sadbear');
+  //   } else {
+  //       this.gameState.bear.destroy();
+  //       // this.add.image(920, 100, 'neutralbear');
+  //   }
+  // }
 }
 
 export default DialogButton
