@@ -8,7 +8,7 @@ import Bathroom from './assets/bathroom.png';
 import Toilet from './assets/toilet.png';
 import Shower from './assets/showerset.png';
 import Washer from './assets/washer.png';
-import Ice from './assets/ice.png';
+import Ice from './assets/icefloeborder.png';
 import Bear from './assets/bear.png';
 import Sad from './assets/bearsad.png';
 import Happy from './assets/bearhappy.png';
@@ -84,6 +84,7 @@ class NavScreen extends Phaser.Scene {
         this.load.image('bathselect', Bathselect);
         this.load.image('kitchenselect', Kitchenselect);
         this.load.image('arctic', Arctic)
+        this.load.image('sadbear', Sad);
     }
 
     create () {
@@ -92,6 +93,10 @@ class NavScreen extends Phaser.Scene {
         gameState.iceFloe = this.add.image(928, 125, 'ice');
         
         gameState.bear = this.add.image(920, 85, 'neutralbear');
+
+        this.gameOverText = this.add.text(300, 300, 'Game Over', {fontSize: '30px', fill: '#000'})
+        this.gameOverText.setOrigin(0,0);
+        this.gameOverText.visible = false;
         
         var timerText;
         var timedEvent;
@@ -116,7 +121,9 @@ class NavScreen extends Phaser.Scene {
                 gameState.iceFloe.setScale(gameState.iceSize);
             } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
                 timedEvent.remove();
-                //put Game Over scene here and also make current scene unclickable
+                this.gameOverText.visible = true;
+                gameState.bear.destroy();
+                this.add.image(920, 85, 'sadbear');
             } 
         }
 
@@ -370,6 +377,7 @@ class BathroomScene extends Phaser.Scene {
             } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
                 timedEvent.remove();
                 this.gameOverText.visible = true;
+                gameState.bear.destroy();
                 this.add.image(920, 85, 'sadbear');
             } 
         }
