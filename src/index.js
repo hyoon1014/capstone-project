@@ -18,6 +18,7 @@ import Bathselect from './assets/bathroomselect.png';
 import Kitchenselect from './assets/kitchenselect.png';
 import Toaster from './assets/toaster.png';
 import Refrigerator from './assets/refrigerator.png';
+import Duck from './assets/duck.png';
 
 
 let gameState = {
@@ -41,6 +42,10 @@ let gameState = {
         isCorrect: false
     },
     toilet: {
+        isAnswered: true,
+        isCorrect: false
+    },
+    duck: {
         isAnswered: true,
         isCorrect: false
     }
@@ -223,6 +228,7 @@ class BathroomScene extends Phaser.Scene {
         this.load.image('sadbear', Sad);
         this.load.image('happybear', Happy);
         this.load.image('arctic', Arctic)
+        this.load.image('duck', Duck)
     }
     create () {
         const bathroom = this.add.image(0, 0, 'bathroom');
@@ -257,6 +263,36 @@ class BathroomScene extends Phaser.Scene {
                 gameState, 
                 this, 
                 "A perfectly clean toilet that you used earlier today.",
+                correctParams,
+                wrongParams
+            )
+        })
+
+        const duck = this.add.sprite(362, 86, 'duck');
+
+        duck.setInteractive();
+
+        duck.on('pointerover', () => {
+            duck.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        duck.on('pointerout', () => {
+            duck.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+        
+        duck.on('pointerdown', () => {
+            const correctParams = {
+                key: 'duck',
+                type: 'none'
+            }
+            const wrongParams = {
+                key: 'duck',
+                type: 'none'
+            }
+            new Dialog(
+                gameState, 
+                this, 
+                "Quack! A rubber friend you play with every day.",
                 correctParams,
                 wrongParams
             )
@@ -361,7 +397,7 @@ class BathroomScene extends Phaser.Scene {
         
         gameState.bear = this.add.image(920, 85, 'neutralbear');
 
-        this.gameOverText = this.add.text(300, 300, 'Game Over', {fontSize: '30px', fill: '#000'})
+        this.gameOverText = this.add.text(300, 300, 'Game Over', {fontSize: '70px', fill: '#000'})
         this.gameOverText.setOrigin(0,0);
         this.gameOverText.visible = false;
         
