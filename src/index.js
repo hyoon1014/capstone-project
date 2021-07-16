@@ -16,6 +16,8 @@ import Arctic from './assets/arcticbackgroundborder.png';
 import Kitchen from './assets/kitchen.png';
 import Bathselect from './assets/bathroomselect.png';
 import Kitchenselect from './assets/kitchenselect.png';
+import Toaster from './assets/toaster.png';
+import Refrigerator from './assets/refrigerator.png';
 
 
 let gameState = {
@@ -27,6 +29,14 @@ let gameState = {
         isCorrect: false
     },
     washer: {
+        isAnswered: false,
+        isCorrect: false
+    },
+    toaster: {
+        isAnswered: false,
+        isCorrect: false
+    },
+    refrigerator: {
         isAnswered: false,
         isCorrect: false
     },
@@ -279,20 +289,20 @@ class BathroomScene extends Phaser.Scene {
                 key: 'shower',
                 type: 'wrong'
             }
-            const correctExplainParams = {
-                x: 150,
-                y: 500,
-                question: "Yes! Not only are you using less water",
-                key: 'shower',
-                type: 'correct'
-            }
+            // const correctExplainParams = {
+            //     x: 150,
+            //     y: 500,
+            //     question: "Yes! Not only are you using less water",
+            //     key: 'shower',
+            //     type: 'correct'
+            // }
             new Dialog(
                 gameState, 
                 this, 
                 "How long should you take a shower?", 
                 correctParams, 
-                wrongParams,
-                correctExplainParams
+                wrongParams
+                // correctExplainParams
             )
         })
 
@@ -408,10 +418,13 @@ class BathroomScene extends Phaser.Scene {
 class KitchenScene extends Phaser.Scene {
     constructor () {
         super({key: 'KitchenScene'});
+        this.score = 0;
     }
 
     preload () {
         this.load.image('kitchen', Kitchen);
+        this.load.image('refrigerator', Refrigerator);
+        this.load.image('toaster', Toaster);
     }
 
     create () {
@@ -420,6 +433,138 @@ class KitchenScene extends Phaser.Scene {
         kitchen.setScale(.5);
 
         kitchen.setOrigin(0,0);
+
+        const toaster = this.add.sprite(647, 60, 'toaster');
+
+        toaster.setInteractive();
+
+        toaster.on('pointerover', function() {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        toaster.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        toaster.on('pointerdown', () => {
+            const correctParams = {
+                x: 150,
+                y: 480,
+                question: "Turned off and unplugged until you use it again",
+                key: 'toaster',
+                type: 'correct'
+            }
+            const wrongParams = {
+                x: 150,
+                y: 450,
+                question: "Turned off and plugged in",
+                key: 'toaster',
+                type: 'wrong'
+            }
+            new Dialog(
+                gameState, 
+                this, 
+                "How should you leave electronics that aren't being used?", 
+                correctParams, 
+                wrongParams
+            )
+        })
+        
+        const refrigerator = this.add.sprite(705, 168, 'refrigerator');
+
+        refrigerator.setInteractive();
+
+        refrigerator.on('pointerover', function() {
+            this.setBlendMode(Phaser.BlendModes.SCREEN);
+        })
+
+        refrigerator.on('pointerout', function() {
+            this.setBlendMode(Phaser.BlendModes.NORMAL);
+        })
+
+        refrigerator.on('pointerdown', () => {
+            const correctParams = {
+                x: 150,
+                y: 450,
+                question: "Open at any time",
+                key: 'refrigerator',
+                type: 'wrong'
+            }
+            const wrongParams = {
+                x: 150,
+                y: 480,
+                question: "Closed, except when getting food or drinks",
+                key: 'refrigerator',
+                type: 'correct'
+            }
+            new Dialog(
+                gameState, 
+                this, 
+                "How should you keep the refrigerator?", 
+                correctParams, 
+                wrongParams
+            )
+        })
+        gameState.scoreText = this.add.text(900, 225, this.score, { fontSize: '40px', fill: '#000000' });
+
+        const backFromKitchen = new Button(920, 375, 'Back', this, () => {
+            this.scene.pause('KitchenScene')
+            this.scene.start('NavScreen')
+        } )
+
+        const arcticBackground = this.add.image(915, 100, 'arctic')
+        
+        gameState.iceFloe = this.add.image(928, 125, 'ice');
+        
+        gameState.bear = this.add.image(920, 85, 'neutralbear');
+
+        this.gameOverText = this.add.text(300, 300, 'Game Over', {fontSize: '30px', fill: '#000'})
+        this.gameOverText.setOrigin(0,0);
+        this.gameOverText.visible = false;
+        
+        var timerText;
+        var timedEvent;
+        
+        function formatTime(seconds) {
+           var minutes = Math.floor(seconds/60);
+           var partInSeconds = seconds%60;
+           
+           partInSeconds = partInSeconds.toString().padStart(2,'0'); 
+           return `${minutes}:${partInSeconds}`;
+        }
+
+        function countdownTime () {
+            this.initialTime -= 1;
+            timerText.setText(formatTime(this.initialTime));
+
+            if (this.initialTime === 20 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (this.initialTime === 10 && gameState.iceSize < 2) {
+                gameState.iceSize -= .25;
+                gameState.iceFloe.setScale(gameState.iceSize);
+            } else if (gameState.iceSize === 0.5 || this.initialTime === 0) {
+                timedEvent.remove();
+                this.gameOverText.visible = true;
+                gameState.bear.destroy();
+                this.add.image(920, 85, 'sadbear');
+            } 
+        }
+
+       this.initialTime = 30;
+       timerText = this.add.text(
+           880, 
+           300, 
+           formatTime(this.initialTime), 
+           { fontSize: '30px', fill: '#000000' }
+        );
+
+       timedEvent = this.time.addEvent({
+           callback: countdownTime,
+           delay: 1000,
+           callbackScope: this,
+           loop: true
+       })
 
     }
 }
