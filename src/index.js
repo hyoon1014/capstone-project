@@ -61,13 +61,15 @@ class StartScreen extends Phaser.Scene {
         this.load.image('neutralbear', Bear);
     }
     create () {
-        this.add.image(470, 300, 'ice');
-        this.add.image(465, 255, 'neutralbear');
-        const playButton = new Button(380, 375, 'Play', this, () => {
+        const titleText = this.add.text(200, 100, 'Polar Bear Panic!', {fontSize: '80px', fill: '#fff', fontFamily: 'Impact'});
+
+        this.add.image(470, 320, 'ice');
+        this.add.image(465, 275, 'neutralbear');
+        const playButton = new Button(360, 400, 'Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('NavScreen')
         } )
-        const instructionsButton = new Button(575, 375, 'How to Play', this, () => {
+        const instructionsButton = new Button(575, 400, 'How to Play', this, () => {
             this.scene.stop('StartScreen')
             this.scene.start('InstructionScreen')
         } )
@@ -456,7 +458,7 @@ class InstructionScreen extends Phaser.Scene {
             this.scene.start('StartScreen')
         } )
 
-        backButton.button.setStyle({ fontFamily: 'Verdana' })
+        backButton.button.setStyle({ fontFamily: 'Arial' })
     }
 }
 
